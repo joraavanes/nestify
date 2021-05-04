@@ -1,0 +1,16 @@
+{
+  "name": "nestify",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "joraavanes <jora_a@outlook.com>",
+  "license": "MIT",
+  "engines": {
+    "node": "14.15.1"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
