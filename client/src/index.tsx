@@ -1,15 +1,10 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import App from './components/App';
-import Nest from './components/Nest';
-import Nests from './components/Nests';
-import { 
-    ApolloClient,
-    createHttpLink,
-    InMemoryCache,
-    ApolloProvider
- } from '@apollo/client'
+import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from '@apollo/client'
+const App = lazy(() => import('./components/App'));
+const Nest = lazy(() => import('./components/Nest'));
+const Nests = lazy(() => import( './components/Nests'));
 
 export const client = new ApolloClient({
     cache: new InMemoryCache(),
@@ -24,11 +19,13 @@ const Index: React.FC<IndexProps> = ({message}) => {
     return (
         <ApolloProvider client={client}>
             <Router>
-                <Switch>
-                    <Route path="/" component={App} exact={true}/>
-                    <Route path="/nests" component={Nests} exact={true}/>
-                    <Route path="/nest" component={Nest} exact={true}/>
-                </Switch>
+                <Suspense fallback={<div>Loading ...</div>}>
+                    <Switch>
+                        <Route path="/" component={App} exact={true}/>
+                        <Route path="/nests" component={Nests} exact={true}/>
+                        <Route path="/nest" component={Nest} exact={true}/>
+                    </Switch>
+                </Suspense>
                 {/* <div>{message}</div>
                 <p>Way to go</p> */}
             </Router>
