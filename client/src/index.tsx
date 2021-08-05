@@ -11,11 +11,7 @@ export const client = new ApolloClient({
     link: createHttpLink({uri: 'http://localhost:3000/graphql'})
 })
 
-type IndexProps = {
-    message: string
-};
-
-const Index: React.FC<IndexProps> = ({message}) => {
+const Index: React.FC = () => {
     return (
         <ApolloProvider client={client}>
             <Router>
@@ -26,14 +22,12 @@ const Index: React.FC<IndexProps> = ({message}) => {
                         <Route path="/nest" component={Nest} exact={true}/>
                     </Switch>
                 </Suspense>
-                {/* <div>{message}</div>
-                <p>Way to go</p> */}
             </Router>
         </ApolloProvider>
     );
 };
 
 render(
-    <Index message="This sounds great"/>,
+    <Index/>,
     document.querySelector('#main')
 );
