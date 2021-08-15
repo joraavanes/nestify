@@ -13,7 +13,7 @@
     "build": "tsc -p ."
   },
   "dependencies": {
-    "apollo-server-express": "^3.0.2",
+    "apollo-server-express": "^3.1.2",
     "express": "^4.17.1",
     "graphql": "^15.5.1",
     "mongodb": "^4.0.1",
