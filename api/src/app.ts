@@ -1,20 +1,14 @@
 import express, { Application, NextFunction, Request, Response} from 'express'
-import { initializeApolloServer } from './graphql/apolloServer';
+import { expressLoader } from './loaders/express'
 
 const PORT: Number = Number(process.env.PORT) || 5000;
 
-const initializeServer = async (): Promise<void> => {
-    const app: Application = express();
-    
-    app.get('/', (req: Request, res: Response, next: NextFunction) => {
-        res.send('Hello ts express. Welcome to typescript express');
-    });
-
-    await initializeApolloServer(app);
+const startServer = async () => {
+    const app = await expressLoader();
 
     app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
-};
+}
 
-initializeServer();
+startServer();
 
 
