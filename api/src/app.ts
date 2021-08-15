@@ -1,11 +1,14 @@
 import express, { Application, NextFunction, Request, Response} from 'express'
-
-const app: Application = express();
+import { expressLoader } from './loaders/express'
 
 const PORT: Number = Number(process.env.PORT) || 5000;
 
-app.get('/', (req: Request, res: Response, next: NextFunction) => {
-    res.send('Hello ts express. Welcome to typescript express');
-});
+const startServer = async () => {
+    const app = await expressLoader();
 
-app.listen(PORT, () => console.log('Server is running on http://localhost:5000'));
+    app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+}
+
+startServer();
+
+
