@@ -1,3 +1,4 @@
+import colors from 'colors';
 import express, {Application, Request, Response, NextFunction} from 'express';
 import { initializeApolloServer } from "./apolloServer";
 import { mongoLoader } from './mongo';
@@ -12,7 +13,7 @@ export const expressLoader = async (): Promise<Application> => {
     try {
         await mongoLoader();
     } catch (error) {
-        console.log('expressLoader', error.message);
+        console.log(colors.bgRed(error.message));
     }
 
     await initializeApolloServer(app);
