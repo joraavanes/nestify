@@ -9,6 +9,7 @@ export const mutation = new GraphQLObjectType({
             args: {
                 title: {type: new GraphQLNonNull(GraphQLString)},
                 parking: {type: new GraphQLNonNull(GraphQLInt)},
+                rooms: {type: new GraphQLNonNull(GraphQLInt)},
                 longitude: {type: new GraphQLNonNull(GraphQLFloat)},
                 latitude: {type: new GraphQLNonNull(GraphQLFloat)},
             },
