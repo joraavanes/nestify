@@ -1,5 +1,6 @@
 import { GraphQLList, GraphQLObjectType, GraphQLSchema, GraphQLString } from "graphql";
-import { NestType } from "../entity/nest";
+import { NestType, NestModel } from "../entity/nest";
+import { mutation } from './mutation'
 
 const nests = [
     {title: 'house1', rooms:2, parking: 1, latitude: 103.11, longitude: 15},
@@ -19,10 +20,13 @@ const rootQuery = new GraphQLObjectType({
         nests:{
             type: new GraphQLList(NestType),
             resolve(){
-                return nests;
+                return NestModel.find();
             }
         }
     }
 });
 
-export default new GraphQLSchema({query: rootQuery});
+export default new GraphQLSchema({
+    query: rootQuery,
+    mutation
+});

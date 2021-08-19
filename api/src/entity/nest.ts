@@ -56,4 +56,4 @@ const NestSchema = new Schema<Nest>({
     }
 });
 
-export const Nest = model('Nest', NestSchema);
+export const NestModel = model('Nest', NestSchema);
