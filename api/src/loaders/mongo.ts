@@ -1,11 +1,10 @@
 import colors from 'colors';
 import { connect } from 'mongoose';
-
-const uri: string = process.env.MONGO_URI || 'mongodb://localhost:27017/nestify';
+import config from '../config';
 
 export const mongoLoader = async (): Promise<void> => {
     try {
-        const connection = await connect(uri, {
+        const connection = await connect(config.db, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
           });

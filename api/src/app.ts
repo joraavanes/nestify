@@ -1,12 +1,11 @@
 import colors from 'colors';
 import { expressLoader } from './loaders/express';
-
-const PORT: Number = Number(process.env.PORT) || 5000;
+import config from './config';
 
 const startServer = async () => {
     const app = await expressLoader();
 
-    app.listen(PORT, () => console.log(colors.bgGreen(` Server is running on port ${PORT} `)));
+    app.listen(config.port, () => console.log(colors.bgGreen(` Server is running on port ${config.port} `)));
 };
 
 startServer();
