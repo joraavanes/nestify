@@ -9,12 +9,13 @@
   },
   "scripts": {
     "start": "node api/dist/app.js",
-    "dev": "nodemon api/src/app.ts",
+    "dev": "cross-env NODE_ENV=development nodemon api/src/app.ts",
     "build": "tsc -p ."
   },
   "dependencies": {
     "apollo-server-express": "^3.1.2",
     "colors": "^1.4.0",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "graphql": "^15.5.1",
     "mongodb": "^4.0.1",
