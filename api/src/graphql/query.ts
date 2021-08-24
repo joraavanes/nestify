@@ -1,20 +1,20 @@
-import { GraphQLList, GraphQLObjectType, GraphQLString } from "graphql";
-import { NestModel, NestType } from "../entity/nest";
+import { GraphQLList, GraphQLObjectType, GraphQLString } from 'graphql';
+import { NestModel, NestType } from '../entity/nest';
 
 export const query = new GraphQLObjectType({
     name: 'rootQuery',
-    fields:{
-        message:{
+    fields: {
+        message: {
             type: GraphQLString,
-            resolve(parent, args, ctx, info){
-                return `Hello world`;
-            }
+            resolve() {
+                return 'Hello world';
+            },
         },
-        nests:{
+        nests: {
             type: new GraphQLList(NestType),
-            resolve(){
+            resolve() {
                 return NestModel.find();
-            }
-        }
-    }
+            },
+        },
+    },
 });

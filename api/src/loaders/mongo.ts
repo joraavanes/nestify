@@ -7,11 +7,10 @@ export const mongoLoader = async (): Promise<void> => {
     try {
         const connection = await connect(uri, {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
           });
         console.log(colors.bgGreen(' MongoDb connected '));
-
     } catch (error) {
-        throw new Error(error);        
+        throw new Error(error);
     }
 };
