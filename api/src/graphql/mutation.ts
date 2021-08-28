@@ -31,7 +31,7 @@ export const mutation = new GraphQLObjectType({
                 price: { type: GraphQLNonNull(GraphQLInt) },
                 photos: { type: GraphQLList(GraphQLString) },
             },
-            async resolve(parent, args) {
+            async resolve(source, args) {
                 const nest = await NestModel.create({
                     title: args.title,
                     type: args.type,
@@ -72,36 +72,26 @@ export const mutation = new GraphQLObjectType({
                 price: { type: GraphQLInt },
                 photos: { type: GraphQLString },
             },
-            resolve(source, args) {
-                NestModel.findByIdAndUpdate(
+            async resolve(source, args) {
+                const result = await NestModel.findByIdAndUpdate(
                     args.nestId,
                     args,
                     { new: true, useFindAndModify: false },
-                    (err, doc) => {
-                        if (err) {
-                            throw new Error('Failed updating the nest');
-                        }
-                        return doc;
-                    },
                 );
+                return result;
             },
         },
         removeNest: {
             type: NestType,
-            args:{
+            args: {
                 nestId: { type: GraphQLNonNull(GraphQLString) },
             },
-            resolve(source, { nestId }) {
-                NestModel.findByIdAndRemove(
+            async resolve(source, { nestId }) {
+                const result = await NestModel.findByIdAndRemove(
                     nestId,
                     { useFindAndModify: false, new: false },
-                    (err, doc) => {
-                        if (err) {
-                            throw new Error('Failed removing the nest');
-                        }
-                        return doc;
-                    },
                 );
+                return result;
             },
         },
     },
