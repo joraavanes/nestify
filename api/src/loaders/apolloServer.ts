@@ -6,15 +6,16 @@ import schema from '../graphql/schema';
 export const initializeApolloServer = async (app: Application): Promise<void> => {
     const apolloServer = new ApolloServer({
         schema,
+        // introspection: false
     });
 
     try {
         await apolloServer.start();
         apolloServer.applyMiddleware({
             app,
-            path: '/graphql',
+            path: '/api',
         });
-        console.log(colors.bgBlue('Apollo Server is running'));
+        console.log(colors.bgBlue(' Apollo Server is running '));
     } catch (error) {
         console.log(error.message);
     }
