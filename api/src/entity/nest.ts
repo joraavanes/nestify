@@ -12,6 +12,7 @@ import { Schema, model } from 'mongoose';
 export const NestType = new GraphQLObjectType({
     name: 'Nest',
     fields: () => ({
+        _id: { type: GraphQLNonNull(GraphQLString) },
         title: { type: GraphQLNonNull(GraphQLString) },
         type: { type: GraphQLNonNull(GraphQLString) },
         size: { type: GraphQLNonNull(GraphQLFloat) },
