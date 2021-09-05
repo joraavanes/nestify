@@ -46,7 +46,7 @@ interface Nest {
     longitude: number,
     latitude: number,
     price: number,
-    phtoos: string[],
+    photos: string[],
 }
 
 const NestSchema = new Schema<Nest>({
