@@ -8,7 +8,7 @@ const Nests = lazy(() => import( './components/Nests'));
 
 export const client = new ApolloClient({
     cache: new InMemoryCache(),
-    link: createHttpLink({uri: 'http://localhost:3000/graphql'})
+    link: createHttpLink({uri: 'http://localhost:5000/api'})
 })
 
 const Index: React.FC = () => {
