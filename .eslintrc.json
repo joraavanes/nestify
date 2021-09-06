@@ -19,5 +19,6 @@
         "linebreak-style": "off",
         "import/extensions": "off",
         "import/no-unresolved": "off"
-    }
+    },
+    "ignorePatterns": "/client/"
 }
