@@ -1,32 +1,14 @@
-import React, { Suspense, lazy } from 'react'
-import { render } from 'react-dom'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from '@apollo/client'
-const App = lazy(() => import('./components/App'));
-const Nest = lazy(() => import('./components/Nest'));
-const Nests = lazy(() => import( './components/Nests'));
+import React from 'react';
+import { render } from 'react-dom';
+import { ApolloProvider } from '@apollo/client';
+import { client } from './graphql/ApolloClient';
+import { Routes } from './routes';
 
-export const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    link: createHttpLink({uri: 'http://localhost:5000/api'})
-});
-
-const Index: React.FC = () => {
-    return (
+const Index: React.FC = () => (
         <ApolloProvider client={client}>
-            <Router>
-                <Suspense fallback={<div>Loading ...</div>}>
-                    <Switch>
-                        <Redirect from="/" to="/nests" exact/>
-                        <Route path="/" component={App} exact={true}/>
-                        <Route path="/nests" component={Nests} exact={true}/>
-                        <Route path="/nest/:id" component={Nest} exact={true}/>
-                    </Switch>
-                </Suspense>
-            </Router>
+            <Routes/>
         </ApolloProvider>
-    );
-};
+);
 
 render(
     <Index/>,
