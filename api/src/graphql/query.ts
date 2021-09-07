@@ -1,4 +1,4 @@
-import { GraphQLList, GraphQLObjectType, GraphQLString } from 'graphql';
+import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NestModel, NestType } from '../entity/nest';
 
 export const query = new GraphQLObjectType({
@@ -14,6 +14,15 @@ export const query = new GraphQLObjectType({
             type: new GraphQLList(NestType),
             resolve() {
                 return NestModel.find();
+            },
+        },
+        nest: {
+            type: NestType,
+            args: {
+                id: { type: GraphQLNonNull(GraphQLID) },
+            },
+            resolve(source, { id }) {
+                return NestModel.findById(id);
             },
         },
     },
