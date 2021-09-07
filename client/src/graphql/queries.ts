@@ -13,3 +13,17 @@ export const GET_NESTS = gql`
         }
     }
 `;
+
+export const GET_NEST = gql`
+    query getNest($id: ID!){
+        nest(id: $id) {
+            _id
+            title
+            price
+            furnished
+            dryer
+            latitude
+            longitude
+        }
+    }
+`;

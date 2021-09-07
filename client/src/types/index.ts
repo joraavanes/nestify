@@ -22,3 +22,13 @@ export interface GetNestsData {
     loading: boolean;
     error: Error;
 }
+
+export interface GetNestData {
+    nest: Nest;
+    loading: boolean;
+    error: Error;
+}
+
+export interface NestQueryTVariables {
+    id: string;
+}
