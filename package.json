@@ -10,7 +10,9 @@
   "scripts": {
     "start": "node api/dist/app.js",
     "dev": "cross-env NODE_ENV=development nodemon api/src/app.ts",
-    "build": "tsc -p ."
+    "tsbuild": "tsc -p .",
+    "copy-env": "cp api/src/config/.env api/dist/config/.env",
+    "build": "concurrently \"yarn run tsbuild\" \"yarn run copy-env\""
   },
   "dependencies": {
     "apollo-server-express": "^3.1.2",
@@ -28,6 +30,7 @@
     "@types/node": "^15.12.4",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
+    "concurrently": "^6.2.1",
     "eslint": "^7.2.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
