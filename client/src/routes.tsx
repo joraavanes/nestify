@@ -4,6 +4,7 @@ const Login = lazy(() => import('./components/Auth/Login'));
 const App = lazy(() => import('./components/App'));
 const Nest = lazy(() => import('./components/Nest'));
 const Nests = lazy(() => import( './components/Nests'));
+const AddNest = lazy(() => import('./components/Dashboard/AddNest'));
 
 export const Routes: React.FC = () => (
     <Router>
@@ -13,6 +14,7 @@ export const Routes: React.FC = () => (
                 <Route path="/" component={App} exact={true}/>
                 <Route path="/nests" component={Nests} exact={true}/>
                 <Route path="/nest/:id" component={Nest} exact={true}/>
+                <Route path="/addnest" component={AddNest} exact={true}/>
                 <Route path="/login" component={Login} exact={true}/>
             </Switch>
         </Suspense>
