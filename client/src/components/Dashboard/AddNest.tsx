@@ -1,10 +1,12 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import React, { useEffect } from 'react';
 import { useMutation } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 import { ADD_NEST } from '../../graphql/mutations';
 import { GetNestData, Nest, NestMutationTVariables } from '../../types';
 import NestForm from './NestForm';
 
 const AddNest = () => {
+    const history = useHistory();
     const [addNest,{data, loading, error}] = useMutation<GetNestData,NestMutationTVariables>(ADD_NEST);
 
     const handleAddNest = (nest: Nest) => {
@@ -14,11 +16,11 @@ const AddNest = () => {
     };
 
     useEffect(() => {
-        console.log(loading, error, data);
-
-        return () => {
+        if (data) {
+            history.push('/dashboard');
         }
-    }, [data,error,loading])
+
+    }, [data]);
 
     return (
         <div>
