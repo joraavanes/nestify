@@ -1,5 +1,5 @@
 export interface Nest {
-    _id: string,
+    _id?: string,
     title: string,
     type: string,
     size: number,
@@ -14,7 +14,7 @@ export interface Nest {
     longitude: number,
     latitude: number,
     price: number,
-    photos: string[],
+    photos?: string[],
 }
 
 export interface GetNestsData {
