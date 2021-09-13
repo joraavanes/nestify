@@ -34,6 +34,7 @@ export interface NestQueryTVariables {
 }
 
 export interface NestMutationTVariables {
+    nestId?: string,
     title: string,
     type: string,
     size: number,
