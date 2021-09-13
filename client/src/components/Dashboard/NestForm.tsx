@@ -2,30 +2,33 @@ import React, { FormEvent, useState } from 'react'
 import { Nest } from '../../types';
 
 interface NestFormProps {
-    handleNestMutation: (a: Nest) => void | undefined
+    handleNestMutation: (a: Nest) => void;
+    nest?: Nest;
 };
 
-const NestForm: React.FC<NestFormProps> = ({handleNestMutation}) => {
+const NestForm: React.FC<NestFormProps> = ({handleNestMutation, nest}) => {
 
-    const [title, setTitle] = useState('');
-    const [type, setType] = useState('');
-    const [size, setSize] = useState<number>(0);
-    const [furnished, setFurnished] = useState<boolean>(false);
-    const [dishwasher, setDishwasher] = useState<boolean>(false);
-    const [washingMachine, setWashingMachine] = useState<boolean>(false);
-    const [dryer, setDryer] = useState<boolean>(false);
-    const [airConditioning, setAirconditioning] = useState<boolean>(false);
-    const [heating, setHeating] = useState<boolean>(false);
-    const [parking, setParking] = useState<number>(0);
-    const [rooms, setRooms] = useState<number>(0);
-    const [longitude, setLongitude] = useState<number>(0);
-    const [latitude, setLatitude] = useState<number>(0);
-    const [price, setPrice] = useState<number>(0);
+    const [id, setId] = useState(nest ? nest._id : '');
+    const [title, setTitle] = useState(nest ? nest.title : '');
+    const [type, setType] = useState(nest ? nest.type : '');
+    const [size, setSize] = useState<number>(nest ? nest.size : 0);
+    const [furnished, setFurnished] = useState<boolean>(nest ? nest.furnished : false);
+    const [dishwasher, setDishwasher] = useState<boolean>(nest ? nest.dishwasher : false);
+    const [washingMachine, setWashingMachine] = useState<boolean>(nest ? nest.washingMachine : false);
+    const [dryer, setDryer] = useState<boolean>(nest ? nest.dryer : false);
+    const [airConditioning, setAirconditioning] = useState<boolean>(nest ? nest.airConditioning : false);
+    const [heating, setHeating] = useState<boolean>(nest ? nest.heating : false);
+    const [parking, setParking] = useState<number>(nest ? nest.parking : 0);
+    const [rooms, setRooms] = useState<number>(nest ? nest.rooms : 0);
+    const [longitude, setLongitude] = useState<number>(nest ? nest.longitude : 0);
+    const [latitude, setLatitude] = useState<number>(nest ? nest.latitude : 0);
+    const [price, setPrice] = useState<number>(nest ? nest.price : 0);
     
     const handleFormSubmit = (e:FormEvent) => {
         e.preventDefault();
 
         handleNestMutation({
+            _id: id,
             title,
             type,
             size,
@@ -46,6 +49,7 @@ const NestForm: React.FC<NestFormProps> = ({handleNestMutation}) => {
     return (
         <div>
             <form onSubmit={handleFormSubmit}>
+                <input type="hidden" value={id} onChange={e => setId(e.target.value)}/>
                 <div>
                     <label htmlFor="title">Title</label>
                     <input type="text" name="title" id="title" value={title} onChange={e => setTitle(e.target.value)}/>
