@@ -12,8 +12,8 @@ const Dashboard = () => {
             <NavLink to="/dashboard/AddNest">Add Nest</NavLink>
             {error && <p>Failed getting the nests</p>}
             {data && data.nests.map(nest => (
-                <div>
-                    <p>{nest.title} - {nest.price} - <NavLink to={`/EditNest/${nest._id}`}>Edit</NavLink></p>
+                <div key={nest._id}>
+                    <p>{nest.title} - {nest.price} - <NavLink to={`/dashboard/EditNest/${nest._id}`}>Edit</NavLink></p>
                 </div>
             ))}
         </div>
