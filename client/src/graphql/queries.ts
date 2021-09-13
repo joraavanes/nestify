@@ -19,9 +19,13 @@ export const GET_NEST = gql`
         nest(id: $id) {
             _id
             title
+            type
+            size
             price
             furnished
             dryer
+            parking
+            rooms
             latitude
             longitude
         }
