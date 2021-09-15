@@ -42,3 +42,13 @@ export const EDIT_NEST = gql`
         }
     }
 `;
+
+export const REMOVE_NEST = gql`
+    mutation RemoveNestMutation($nestId: String!){
+        removeNest(nestId: $nestId) {
+            title
+            type
+            price
+        }
+    }
+`;

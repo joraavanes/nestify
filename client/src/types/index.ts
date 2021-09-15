@@ -1,5 +1,5 @@
 export interface Nest {
-    _id?: string,
+    _id: string,
     title: string,
     type: string,
     size: number,
@@ -50,4 +50,8 @@ export interface NestMutationTVariables {
     latitude: number,
     price: number,
     photos?: string[],
+}
+
+export interface NestRemoveTVariables {
+    nestId: string;
 }
