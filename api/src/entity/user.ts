@@ -5,14 +5,14 @@ interface Token{
     token: string;
 }
 
-interface User {
+export interface User {
     email: string;
     password: string;
     userConfirmed: boolean;
     lastLogin: number;
     name: string;
     surname: string;
-    tokens: Token[];
+    tokens?: Token[];
 }
 
 const UserSchema = new Schema<User>({
