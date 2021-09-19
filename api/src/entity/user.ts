@@ -1,4 +1,32 @@
+import { 
+    GraphQLBoolean,
+    GraphQLInt,
+    GraphQLList,
+    GraphQLNonNull,
+    GraphQLObjectType,
+    GraphQLString
+} from 'graphql';
 import { model, Schema } from 'mongoose';
+
+export const UserType = new GraphQLObjectType({
+    name: 'User',
+    fields: () => ({
+        _id: { type: GraphQLNonNull(GraphQLString)},
+        email: { type: GraphQLNonNull(GraphQLString)},
+        password: { type: GraphQLNonNull(GraphQLString)},
+        userConfirmed: { type: GraphQLNonNull(GraphQLBoolean)},
+        lastLogin: { type: GraphQLNonNull(GraphQLInt)},
+        name: { type: GraphQLNonNull(GraphQLString)},
+        surname: { type: GraphQLNonNull(GraphQLString)},
+        tokens: { type: GraphQLList(new GraphQLObjectType({
+            name: 'token',
+            fields: () => ({
+                access: { type: GraphQLNonNull(GraphQLString)},
+                token: { type: GraphQLNonNull(GraphQLString)},
+            }),
+        }))},
+    }),
+});
 
 interface Token{
     access: string;
