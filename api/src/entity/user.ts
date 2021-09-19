@@ -6,6 +6,7 @@ interface Token{
 }
 
 export interface User {
+    _id?: string;
     email: string;
     password: string;
     userConfirmed: boolean;
