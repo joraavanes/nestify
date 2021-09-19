@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 import {
     User,
     UserModel,
@@ -20,14 +21,19 @@ export class UserService {
         return await UserModel.findOne({ email });
     }
 
+    static async hashPassword(plainText: string): Promise<string> {
+        const salt = await bcrypt.genSalt(10);
+        return await bcrypt.hash(plainText, salt);
+    }
+
     static async createUser(user: User): Promise<User> {
         const isUserExists = await this.getUserByEmail(user.email);
-        console.log(isUserExists);
 
         if (isUserExists) {
             throw new Error('User already exists');
         }
 
+        user.password = await this.hashPassword(user.password);
         return await UserModel.create(user);
     }
 
