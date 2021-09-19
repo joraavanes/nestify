@@ -3,7 +3,6 @@ import {
     User,
     UserModel,
 } from '../entity/user';
-import { mongoLoader } from '../loaders/mongo';
 
 export class UserService {
     static async getUsers(sortByName: boolean): Promise<User[]> {
@@ -42,6 +41,17 @@ export class UserService {
             return await UserModel.findByIdAndUpdate(id, { ...user }, { new: true });
         } catch (error) {
             return 'Failed to update the user';
+        }
+    }
+
+    static async passwordReset(email: string, currentPassword: string, plainText: string): Promise<User|undefined>{
+        const user = await this.getUserByEmail(email);
+        const compareResult = await bcrypt.compare(currentPassword, user.password);
+
+        if(compareResult) {
+            const newHash = await this.hashPassword(plainText);
+            const updatedUser = await UserModel.updateOne({email}, {password: newHash}, {new: true});
+            return updatedUser;
         }
     }
 }
