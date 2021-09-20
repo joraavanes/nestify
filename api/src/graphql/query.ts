@@ -32,6 +32,18 @@ export const query = new GraphQLObjectType({
             resolve(){ 
                 return UserService.getUsers(true);
             }
+        },
+        user: {
+            type: UserType,
+            args: {
+                id: { type: GraphQLID },
+                email: { type: GraphQLString },
+            },
+            resolve(source, { id, email }) {
+                return id ? 
+                    UserService.getUserById(id):
+                    UserService.getUserByEmail(email);
+            }
         }
     },
 });
