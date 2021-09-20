@@ -1,5 +1,7 @@
 import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NestModel, NestType } from '../entity/nest';
+import { UserType } from '../entity/user';
+import { UserService } from '../services/UserService';
 
 export const query = new GraphQLObjectType({
     name: 'rootQuery',
@@ -25,5 +27,11 @@ export const query = new GraphQLObjectType({
                 return NestModel.findById(id);
             },
         },
+        users: {
+            type: new GraphQLList(UserType),
+            resolve(){ 
+                return UserService.getUsers(true);
+            }
+        }
     },
 });
