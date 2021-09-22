@@ -21,6 +21,11 @@ const config: LooseObject = {
         db,
         port,
     },
+    test: {
+        env,
+        db: 'mongodb://localhost:27017/nestify-test',
+        port,
+    }
 };
 
 export default config[env];
