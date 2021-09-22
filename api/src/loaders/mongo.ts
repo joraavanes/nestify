@@ -8,6 +8,7 @@ export const mongoLoader = async (): Promise<void> => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useFindAndModify: true,
+            useCreateIndex: true,
           });
         console.log(colors.bgGreen(colors.black(' MongoDb connected ')));
     } catch (error:any) {
