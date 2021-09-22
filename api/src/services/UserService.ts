@@ -50,8 +50,12 @@ export class UserService {
 
         if(compareResult) {
             const newHash = await this.hashPassword(plainText);
-            const updatedUser = await UserModel.updateOne({email}, {password: newHash}, {new: true});
+            const updatedUser = await UserModel.updateOne({email}, {password: newHash}, {new: true });
             return updatedUser;
         }
+    }
+
+    static async confirmUser(email: string){
+        const res = await UserModel.updateOne({email}, {userConfirmed: true}, {new: true });
     }
 }
