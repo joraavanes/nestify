@@ -9,22 +9,26 @@ interface LooseObject {
 const env: any = process.env.NODE_ENV;
 const db: any = process.env.MONGO_URI;
 const port: number = Number(process.env.PORT);
+const jwtKey: string = '$ecret@Key*Jwt2022';
 
 const config: LooseObject = {
     production: {
         env,
         db,
         port,
+        jwtKey,
     },
     development: {
         env,
         db,
         port,
+        jwtKey,
     },
     test: {
         env,
         db: 'mongodb://localhost:27017/nestify-test',
         port,
+        jwtKey,
     }
 };
 
