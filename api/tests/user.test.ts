@@ -14,9 +14,12 @@ const userModelOne = {
 beforeEach(async () => {
     await mongoLoader();
     await UserModel.deleteMany();
+    userModelOne.password = 'bingo@2021'
 });
 
-afterEach(async () => {});
+afterEach(async () => {
+    
+});
 
 test('should test user creation', async () => {
     await UserService.createUser(userModelOne);
@@ -24,4 +27,12 @@ test('should test user creation', async () => {
     var user = await UserService.getUserByEmail(userModelOne.email);
     expect(user.email).toBe(userModelOne.email);
 });
+
+test('should return token by logging in', async () => {
+    await UserService.createUser(userModelOne);
+    
+    const token = await UserService.loginUser(userModelOne.email, 'bingo@2021');
+    expect(typeof token).toBe('string');
+});
+
 
