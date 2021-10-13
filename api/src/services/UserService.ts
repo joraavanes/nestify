@@ -1,4 +1,6 @@
 import bcrypt from 'bcryptjs';
+import jsonWebToken from 'jsonwebtoken';
+import config from '../config/index'
 import {
     User,
     UserModel,
@@ -42,6 +44,24 @@ export class UserService {
         } catch (error) {
             return 'Failed to update the user';
         }
+    }
+
+    static async loginUser(email: string, password: string): Promise<string|null>{
+        const user = await this.getUserByEmail(email);
+        
+        if(!user){
+            return null;
+        }
+        
+        const hashResult = await bcrypt.compare(password, user.password);
+        
+        if(hashResult){
+            const token = jsonWebToken.sign({_id: user._id,email: user.email}, config.jwtKey).toString();
+            await UserModel.findByIdAndUpdate(user._id, { tokens: [{ access: 'auth', token }] });
+            return token;
+        }
+
+        return null;
     }
 
     static async passwordReset(email: string, currentPassword: string, plainText: string): Promise<User|undefined>{
