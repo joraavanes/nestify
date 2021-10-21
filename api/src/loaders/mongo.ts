@@ -7,10 +7,10 @@ export const mongoLoader = async (): Promise<void> => {
         const connection = await connect(config.db, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
-            useFindAndModify: true,
+            useFindAndModify: false,
             useCreateIndex: true,
           });
-        console.log(colors.bgGreen(colors.black(' MongoDb connected ')));
+        config.env !== 'test' && console.log(colors.bgGreen(colors.black(' MongoDb connected ')));
     } catch (error:any) {
         throw new Error(error);
     }
