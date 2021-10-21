@@ -8,7 +8,8 @@ const userModelOne = {
     email: 'jora_a@outlook.com',
     password: 'bingo@2021',
     userConfirmed: false,
-    lastLogin: 0
+    lastLogin: 0,
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTcxNzczZDcyNDc4MTU2NTAzODUzZGMiLCJlbWFpbCI6ImpvcmFfYUBvdXRsb29rLmNvbSIsImlhdCI6MTYzNDgyNjA0NX0.U_DAKS46zJlXehuQbDLCyUrAv8FCVVvwT-EozfeHP3o'
 };
 
 beforeEach(async () => {
@@ -35,4 +36,8 @@ test('should return token by logging in', async () => {
     expect(typeof token).toBe('string');
 });
 
+test('should return decoded data back by given token', () => {
+    const decoded = UserService.verifyToken(userModelOne.token);
 
+    expect(decoded.email).toBe('jora_a@outlook.com');
+});
