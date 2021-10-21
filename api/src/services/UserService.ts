@@ -64,6 +64,19 @@ export class UserService {
         return null;
     }
 
+    static verifyToken(token: string): jsonWebToken.JwtPayload{
+        let decoded;
+
+        try {
+            decoded = jsonWebToken.verify(token, config.jwtKey, { complete: false });
+            if(typeof decoded === 'string') throw new Error();
+            
+            return decoded;
+        } catch (error) {
+            return {};
+        }
+    }
+
     static async passwordReset(email: string, currentPassword: string, plainText: string): Promise<User|undefined>{
         const user = await this.getUserByEmail(email);
         const compareResult = await bcrypt.compare(currentPassword, user.password);
