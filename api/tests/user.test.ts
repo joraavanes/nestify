@@ -19,7 +19,7 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
-    
+    await UserModel.deleteMany();
 });
 
 test('should test user creation', async () => {
@@ -40,4 +40,17 @@ test('should return decoded data back by given token', () => {
     const decoded = UserService.verifyToken(userModelOne.token);
 
     expect(decoded.email).toBe('jora_a@outlook.com');
+});
+
+test('should verify the user with the valid token', async () => {
+    let result: boolean = false;
+    
+    await UserService.createUser(userModelOne);
+    const token = await UserService.loginUser(userModelOne.email, 'bingo@2021');
+    
+    if(token){
+        result = await UserService.verifyUser(userModelOne.email, token);
+    }
+
+    expect(result).toBe(true);
 });
