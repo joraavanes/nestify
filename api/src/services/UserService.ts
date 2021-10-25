@@ -77,6 +77,22 @@ export class UserService {
         }
     }
 
+    static async verifyUser(email: string, token: string): Promise<boolean>{
+        const decoded = this.verifyToken(token);
+
+        if(!decoded.email) return Promise.reject(false);
+        const user = await UserModel.find({ 
+            email,
+            'tokens.token': token,
+            'tokens.access': 'auth'
+        });
+
+        if(user) 
+            return Promise.resolve(true);
+        else
+            return Promise.reject(false);
+    }
+
     static async passwordReset(email: string, currentPassword: string, plainText: string): Promise<User|undefined>{
         const user = await this.getUserByEmail(email);
         const compareResult = await bcrypt.compare(currentPassword, user.password);
