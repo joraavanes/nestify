@@ -24,7 +24,7 @@ export const UserType = new GraphQLObjectType({
         email: { type: GraphQLNonNull(GraphQLString)},
         password: { type: GraphQLNonNull(GraphQLString)},
         userConfirmed: { type: GraphQLNonNull(GraphQLBoolean)},
-        lastLogin: { type: GraphQLNonNull(GraphQLInt)},
+        lastLogin: { type: GraphQLInt},
         name: { type: GraphQLNonNull(GraphQLString)},
         surname: { type: GraphQLNonNull(GraphQLString)},
         tokens: { type: GraphQLList(new GraphQLObjectType({
