@@ -8,6 +8,15 @@ import {
 } from 'graphql';
 import { model, Schema } from 'mongoose';
 
+export const LoginType = new GraphQLObjectType({
+    name: 'Login',
+    fields: () => ({
+        result: { type: GraphQLNonNull(GraphQLString) },
+        description: { type: GraphQLNonNull(GraphQLString) },
+        token: { type: GraphQLString },
+    }),
+});
+
 export const UserType = new GraphQLObjectType({
     name: 'User',
     fields: () => ({
@@ -38,7 +47,7 @@ export interface User {
     email: string;
     password: string;
     userConfirmed: boolean;
-    lastLogin: number;
+    lastLogin?: number;
     name: string;
     surname: string;
     tokens?: Token[];
