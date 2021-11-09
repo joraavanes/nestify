@@ -1,4 +1,7 @@
-import { FormEvent, useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { FormEvent, useEffect, useState } from 'react';
+import { REGISTER_USER } from '../../graphql/mutations';
+import { RegisterData, RegisterVariables } from '../../types';
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -6,12 +9,31 @@ const Register = () => {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
 
+    const [RegisterUser, {data, loading, error}] = useMutation<RegisterData, RegisterVariables>(REGISTER_USER);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
         console.log(email, password, name, surname);
+
+        RegisterUser({
+            variables: {
+                email,
+                password,
+                name,
+                surname
+            }
+        });
+        console.log(data);
     };
+
+    useEffect(() => {
+        console.log(data);
+
+        return () => {
+            
+        };
+    }, [data]);
 
     return (
         <div>
@@ -36,6 +58,7 @@ const Register = () => {
                     <input type="submit" value="Register" />
                 </div>
             </form>
+            {data && JSON.stringify(data, undefined, 3)}
         </div>
     );
 };
