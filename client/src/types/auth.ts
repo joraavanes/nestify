@@ -8,3 +8,20 @@ export interface LoginVariables{
     username: string;
     password: string;
 }
+
+export interface RegisterData {
+    email: string;
+    password: string;
+    userConfirmed: boolean;
+    lastLogin?: number;
+    name: string;
+    surname: string;
+}
+
+export interface RegisterVariables{
+    email: string;
+    password: string;
+    userConfirmed?: boolean;
+    name: string;
+    surname: string;
+}

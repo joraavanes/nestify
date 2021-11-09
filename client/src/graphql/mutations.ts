@@ -62,3 +62,17 @@ export const LOGIN_USER = gql`
         }
     }
 `;
+
+export const REGISTER_USER = gql`
+    mutation RegisterUser($email: String!, $password: String!, $name: String!, $surname: String!) {
+        registerUser(email: $email, password: $password, name: $name, surname: $surname) {
+            _id
+            email
+            password
+            name
+            surname
+            lastLogin
+            userConfirmed
+        }
+    }
+`;
