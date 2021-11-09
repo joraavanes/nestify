@@ -31,7 +31,7 @@ export const NestType = new GraphQLObjectType({
     }),
 });
 
-interface Nest {
+export interface Nest {
     title: string,
     type: string,
     size: number,
