@@ -8,12 +8,7 @@ const Login: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const [loginUser, {data, loading, error}] = useMutation<LoginData,LoginVariables>(LOGIN_USER, {
-        variables: {
-            username: "jora_a@yahoo.com",
-            password: "jimbo@2022"
-        }
-    });
+    const [loginUser, {data, loading, error}] = useMutation<LoginData,LoginVariables>(LOGIN_USER);
 
     const handleResponse = (response: any) => {
         console.log(response);
