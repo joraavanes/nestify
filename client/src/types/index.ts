@@ -57,3 +57,4 @@ export interface NestRemoveTVariables {
 }
 
 export * from './auth'
+export * from './users'
