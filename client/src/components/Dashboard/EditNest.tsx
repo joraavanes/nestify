@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
-import React, { useEffect } from 'react'
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { EDIT_NEST } from '../../graphql/mutations';
 import { GET_NEST } from '../../graphql/queries';
@@ -7,6 +8,7 @@ import { GetNestData, Nest, NestMutationTVariables, NestQueryTVariables } from '
 import NestForm from './NestForm';
 
 const EditNest = () => {
+    const history = useHistory();
     const {id}: {id: string} = useParams();
 
     const {data, loading, error} = useQuery<GetNestData, NestQueryTVariables>(GET_NEST,{
@@ -18,7 +20,7 @@ const EditNest = () => {
     const [EditNest, {data: mutationData, loading: mutationLoading, error: mutationError}] = useMutation<GetNestData, NestMutationTVariables>(EDIT_NEST);
 
     const handleEditNest = (nest: Nest) => {
-        console.log(nest);
+        // console.log(nest);
         EditNest({
             variables: { 
                 nestId: nest._id,
@@ -28,18 +30,26 @@ const EditNest = () => {
     };
 
     useEffect(() => {
-        console.log(data, loading, error);
+        // console.log(data, loading, error);
         
         return () => {
         };
     }, [data, loading, error]);
 
     useEffect(() => {
-        console.log(mutationData, mutationLoading, mutationError);
+        // console.log(mutationData, mutationLoading, mutationError);
 
         return () => {
         };
     }, [mutationData, mutationLoading, mutationError]);
+
+    useEffect(() => {
+        if(mutationData){
+            history.push('/dashboard');
+        }
+
+        return () => {};
+    }, [mutationData]);
 
     return (
         <div>
