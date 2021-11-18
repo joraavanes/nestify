@@ -31,3 +31,16 @@ export const GET_NEST = gql`
         }
     }
 `;
+
+export const GET_USERS = gql`
+    query Users {
+        users {
+            _id
+            email
+            name
+            surname
+            lastLogin
+            userConfirmed
+        }
+    }
+`;
