@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import { useMutation, useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client';
 import { GET_NESTS } from '../../graphql/queries';
 import { GetNestData, GetNestsData, NestRemoveTVariables } from '../../types';
 import { REMOVE_NEST } from '../../graphql/mutations';
@@ -21,6 +21,7 @@ const Dashboard = () => {
     return (
         <div>
             <NavLink to="/dashboard/AddNest">Add Nest</NavLink>
+            <NavLink to="/dashboard/users">Users</NavLink>
             {error && <p>Failed getting the nests</p>}
             {data && data.nests.map(nest => (
                 <div key={nest._id}>
