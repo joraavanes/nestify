@@ -19,7 +19,7 @@ export const BookingType = new GraphQLObjectType({
     })
 });
 
-interface Booking{
+export interface Booking{
     nest: Nest;
     tenant: User;
     checkIn: Date;
