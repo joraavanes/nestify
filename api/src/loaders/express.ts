@@ -1,4 +1,4 @@
-import colors from 'colors';
+import path from 'path';
 import express, {
     Application,
     Request,
@@ -8,13 +8,12 @@ import express, {
 
 export const expressLoader = async (): Promise<Application> => {
     const app: Application = express();
-
-    app.get('/', (req: Request, res: Response, next: NextFunction) => {
-        res.status(200).send('Hello ts express. Welcome to typescript express');
-    });
-
-    app.get('/info', (req: Request, res: Response, next: NextFunction) => {
-        res.status(200).send('info');
+    
+    app.use(express.static(path.join(__dirname, '../../', 'public')));
+        
+    app.get('*', (req: Request, res: Response, next: NextFunction) => {
+        const clientApp = path.join(__dirname, '../../public', 'index.html');
+        res.sendFile(clientApp);
     });
 
     return app;
