@@ -3,7 +3,7 @@ import { Booking, BookingModel } from '../entity/booking';
 
 export class BookingService{
     static async getBookings(): Promise<Booking[]> {
-        return BookingModel.find();
+        return await BookingModel.find().populate('nest').populate('tenant');
     }
 
     static async getBookingById(id: string): Promise<Booking> {
