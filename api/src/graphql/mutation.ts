@@ -7,8 +7,10 @@ import {
     GraphQLObjectType,
     GraphQLString,
 } from 'graphql';
+import { BookingType } from '../entity/booking';
 import { NestModel, NestType } from '../entity/nest';
 import { LoginType, UserType } from '../entity/user';
+import { BookingService } from '../services';
 import { UserService } from '../services/UserService';
 
 export const mutation = new GraphQLObjectType({
@@ -130,5 +132,17 @@ export const mutation = new GraphQLObjectType({
                 return { result: 'Login Failed', description: 'Username or password is incorrect.' };
             }
         },
+        addBooking: {
+            type: BookingType,
+            args:{
+                tenant: { type: GraphQLNonNull(GraphQLString) },
+                nest: { type: GraphQLNonNull(GraphQLString) },
+                checkIn: { type: GraphQLNonNull(GraphQLString)},
+                checkOut: { type: GraphQLString },
+            },
+            async resolve(source, {tenant, nest, checkIn, checkOut}){
+                return await BookingService.addBooking(tenant, nest, +checkIn, +checkOut);
+            }
+        }
     },
 });
