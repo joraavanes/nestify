@@ -1,7 +1,8 @@
 import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { BookingType } from '../entity/booking';
 import { NestModel, NestType } from '../entity/nest';
 import { UserType } from '../entity/user';
-import { UserService } from '../services/UserService';
+import { UserService,BookingService } from '../services/';
 
 export const query = new GraphQLObjectType({
     name: 'rootQuery',
@@ -45,5 +46,11 @@ export const query = new GraphQLObjectType({
                     UserService.getUserByEmail(email);
             }
         },
+        bookings: {
+            type: new GraphQLList(BookingType),
+            resolve(){
+                return BookingService.getBookings();
+            }
+        }
     },
 });
