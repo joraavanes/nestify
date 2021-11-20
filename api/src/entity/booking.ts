@@ -2,11 +2,11 @@ import { Schema, model } from 'mongoose';
 import { 
     GraphQLObjectType,
     GraphQLNonNull,
-    GraphQLInt,
-    GraphQLID
+    GraphQLID,
 } from 'graphql';
 import { NestType, Nest } from './nest';
 import { User, UserType } from './user';
+import { DateScalar } from '../graphql/CustomScalars/DateScalar';
 
 export const BookingType = new GraphQLObjectType({
     name: 'Booking',
@@ -14,8 +14,8 @@ export const BookingType = new GraphQLObjectType({
         _id: { type: GraphQLNonNull(GraphQLID) },
         nest: { type: GraphQLNonNull(NestType) },
         tenant: { type: GraphQLNonNull(UserType) },
-        checkIn: { type: GraphQLNonNull(GraphQLInt) },
-        checkOut: { type: GraphQLInt },
+        checkIn: { type: GraphQLNonNull(DateScalar) },
+        checkOut: { type: DateScalar },
     })
 });
 
