@@ -17,3 +17,5 @@ client/yarn-debug.log
 client/yarn-error.log
 
 api/src/config/.env
+
+api/tests/playground.test.ts
