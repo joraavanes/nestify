@@ -34,4 +34,10 @@ export class BookingService{
             return Promise.reject('Failed to add Booking');
         }
     }
+
+    static async deleteBooking(id: string){
+        return await BookingModel.findOneAndDelete({
+            _id: new ObjectId(id)
+        });
+    }
 }
