@@ -144,6 +144,25 @@ export const mutation = new GraphQLObjectType({
                 return await BookingService.addBooking(tenant, nest, +checkIn, +checkOut);
             }
         },
+        updateBooking: {
+            type: BookingType,
+            args: {
+                _id: { type: GraphQLNonNull(GraphQLString)},
+                tenant: { type: GraphQLString },
+                nest: { type: GraphQLString },
+                checkIn: { type: GraphQLString},
+                checkOut: { type: GraphQLString },
+            },
+            async resolve(source, { _id, tenant, nest, checkIn, checkOut }){
+                return await BookingService.updateBooking(
+                    _id, { 
+                        tenant, 
+                        nest, 
+                        checkIn: +checkIn,
+                        checkOut: +checkOut 
+                    });
+            }
+        },
         removeBooking: {
             type: BookingType,
             args: {
