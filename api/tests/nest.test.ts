@@ -22,6 +22,9 @@ const nestModelOne: Nest = {
 
 beforeEach(async () => {
     await mongoLoader();
+    
+    const doc = new NestModel(nestModelOne);
+    const res: Nest = await doc.save();
 });
 
 afterEach(async () => {
@@ -29,9 +32,7 @@ afterEach(async () => {
 });
 
 test('should add a new nest', async () => {
-    const doc = new NestModel(nestModelOne);
-    const res: Nest = await doc.save();
-    
-    expect(res.title).toBe(nestModelOne.title);
+    const doc: Nest = await NestModel.findOne({ title: nestModelOne.title });
+    expect(doc.title).toBe(nestModelOne.title);
 });
 
