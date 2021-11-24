@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { UserService } from '.';
-import { Booking, BookingModel } from '../entity/booking';
+import { Booking, BookingModel, UpdateBooking } from '../entity/booking';
 import { NestModel } from '../entity/nest';
 
 export class BookingService{
@@ -32,6 +32,28 @@ export class BookingService{
         } catch (error) {
             // todo: log error
             return Promise.reject('Failed to add Booking');
+        }
+    }
+
+    static async updateBooking(id: string, payload: UpdateBooking){
+        try {
+            let updatedData:any = {};
+            if(payload.nest) updatedData.nest = await NestModel.findOne({_id: new ObjectId(payload.nest.toString())});
+            if(payload.tenant) updatedData.tenant = await UserService.getUserById(payload.tenant.toString());
+            if(payload.checkIn) updatedData.checkIn = new Date(payload.checkIn);
+            if(payload.checkOut) updatedData.checkOut = new Date(payload.checkOut);
+
+            return await BookingModel.findByIdAndUpdate(
+                id,
+                updatedData,
+                {
+                    new: true
+                }
+            );
+
+        } catch (error) {
+            // todo: log error
+            return Promise.reject('Failed updating the booking');
         }
     }
 
