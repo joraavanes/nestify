@@ -3,6 +3,7 @@ import { BookingType } from '../entity/booking';
 import { NestModel, NestType } from '../entity/nest';
 import { UserType } from '../entity/user';
 import { UserService,BookingService } from '../services/';
+import { NestService } from '../services/NestService';
 
 export const query = new GraphQLObjectType({
     name: 'rootQuery',
@@ -15,8 +16,8 @@ export const query = new GraphQLObjectType({
         },
         nests: {
             type: new GraphQLList(NestType),
-            resolve() {
-                return NestModel.find();
+            async resolve() {
+                return await NestService.getNests();
             },
         },
         nest: {
@@ -24,8 +25,8 @@ export const query = new GraphQLObjectType({
             args: {
                 id: { type: GraphQLNonNull(GraphQLID) },
             },
-            resolve(source, { id }) {
-                return NestModel.findById(id);
+            async resolve(source, { id }) {
+                return await NestService.getNest(id);
             },
         },
         users: {
