@@ -24,7 +24,6 @@ module.exports = {
             }
         ]
     },
-    devtool: 'source-map',
     plugins: [
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin({
