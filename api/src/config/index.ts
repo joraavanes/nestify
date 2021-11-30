@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import path from 'path';
 
 dotenv.config({ path: `${__dirname}/.env` });
 
@@ -17,12 +18,14 @@ const config: LooseObject = {
         db,
         port,
         jwtKey,
+        staticDir: path.join(__dirname, 'public/')
     },
     development: {
         env,
         db,
         port,
         jwtKey,
+        staticDir: path.join(__dirname, '../../public')
     },
     test: {
         env,
