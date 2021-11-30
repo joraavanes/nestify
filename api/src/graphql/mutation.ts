@@ -12,9 +12,13 @@ import {
     NestService,
     UserService
 } from '../services';
-import { BookingType } from '../entity/booking';
-import { NestModel, NestType } from '../entity/nest';
-import { LoginType, UserType } from '../entity/user';
+import { 
+    BookingType, 
+    NestModel,
+    NestType,
+    LoginType,
+    UserType 
+} from '../entity/';
 
 export const mutation = new GraphQLObjectType({
     name: 'mutation',
