@@ -13,7 +13,7 @@ module.exports = {
     externals: [nodeExternals()],
     output: {
         path: path.join(__dirname, 'api/dist'),
-        filename: 'app.js'
+        filename: 'index.js'
     },
     module: {
         rules: [
