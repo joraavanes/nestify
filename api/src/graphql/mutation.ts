@@ -11,6 +11,7 @@ import { BookingType } from '../entity/booking';
 import { NestModel, NestType } from '../entity/nest';
 import { LoginType, UserType } from '../entity/user';
 import { BookingService } from '../services';
+import { NestService } from '../services/NestService';
 import { UserService } from '../services/UserService';
 
 export const mutation = new GraphQLObjectType({
@@ -35,25 +36,8 @@ export const mutation = new GraphQLObjectType({
                 price: { type: GraphQLNonNull(GraphQLInt) },
                 photos: { type: GraphQLList(GraphQLString) },
             },
-            async resolve(source, args) {
-                const nest = await NestModel.create({
-                    title: args.title,
-                    type: args.type,
-                    size: args.size,
-                    furnished: args.furnished,
-                    dishwasher: args.dishwasher,
-                    washingMachine: args.washingMachine,
-                    dryer: args.dryer,
-                    airConditioning: args.airConditioning,
-                    heating: args.heating,
-                    rooms: args.rooms,
-                    parking: args.parking,
-                    longitude: args.longitude,
-                    latitude: args.latitude,
-                    price: args.price,
-                    photos: args.photos,
-                });
-                return nest;
+            async resolve(source, args:any) {
+                return await NestService.addNest(args);
             },
         },
         editNest: {
