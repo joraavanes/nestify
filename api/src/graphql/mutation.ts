@@ -7,12 +7,14 @@ import {
     GraphQLObjectType,
     GraphQLString,
 } from 'graphql';
+import { 
+    BookingService,
+    NestService,
+    UserService
+} from '../services';
 import { BookingType } from '../entity/booking';
 import { NestModel, NestType } from '../entity/nest';
 import { LoginType, UserType } from '../entity/user';
-import { BookingService } from '../services';
-import { NestService } from '../services/NestService';
-import { UserService } from '../services/UserService';
 
 export const mutation = new GraphQLObjectType({
     name: 'mutation',

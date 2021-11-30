@@ -1,9 +1,8 @@
 import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { BookingType } from '../entity/booking';
-import { NestModel, NestType } from '../entity/nest';
+import { NestType } from '../entity/nest';
 import { UserType } from '../entity/user';
-import { UserService,BookingService } from '../services/';
-import { NestService } from '../services/NestService';
+import { UserService, BookingService, NestService } from '../services/';
 
 export const query = new GraphQLObjectType({
     name: 'rootQuery',
