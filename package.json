@@ -11,6 +11,7 @@
     "start": "node api/dist/app.js",
     "dev": "cross-env NODE_ENV=development nodemon api/src/app.ts",
     "tsbuild": "tsc -p .",
+    "webpack:server": "webpack --config webpack.server.js",
     "copy-env": "cp api/src/config/.env api/dist/config/.env",
     "build": "concurrently \"yarn run tsbuild\" \"yarn run copy-env\"",
     "test": "cross-env NODE_ENV=test jest --watch --testTimeout=8000"
