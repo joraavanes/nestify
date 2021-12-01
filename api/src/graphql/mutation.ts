@@ -41,9 +41,10 @@ export const mutation = new GraphQLObjectType({
                 latitude: { type: GraphQLNonNull(GraphQLFloat) },
                 price: { type: GraphQLNonNull(GraphQLInt) },
                 photos: { type: GraphQLList(GraphQLString) },
+                userId: { type: GraphQLNonNull(GraphQLString) },
             },
-            async resolve(source, args:any) {
-                return await NestService.addNest(args);
+            async resolve(source, { userId, ...args }:any) {
+                return await NestService.addNest(userId, args);
             },
         },
         editNest: {
