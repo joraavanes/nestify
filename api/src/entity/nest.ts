@@ -8,6 +8,7 @@ import {
     GraphQLString,
 } from 'graphql';
 import { Schema, model } from 'mongoose';
+import { User, UserType } from './user';
 
 export const NestType = new GraphQLObjectType({
     name: 'Nest',
@@ -28,6 +29,7 @@ export const NestType = new GraphQLObjectType({
         latitude: { type: GraphQLNonNull(GraphQLFloat) },
         price: { type: GraphQLNonNull(GraphQLInt) },
         photos: { type: GraphQLList(GraphQLString) },
+        landlord: { type: GraphQLNonNull(UserType) },
     }),
 });
 
@@ -47,6 +49,7 @@ export interface Nest {
     latitude: number,
     price: number,
     photos: string[],
+    landlord: User,
 }
 
 const NestSchema = new Schema<Nest>({
@@ -124,6 +127,10 @@ const NestSchema = new Schema<Nest>({
     photos: [{
         type: String,
     }],
+    landlord: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    },
 });
 
 export const NestModel = model('Nest', NestSchema);
