@@ -20,7 +20,8 @@
         "import/extensions": "off",
         "import/no-unresolved": "off",
         "no-return-await": "off",
-        "semi": "error"
+        "semi": "error",
+        "max-len": "off"
     },
     "ignorePatterns": "/client/"
 }

@@ -3,21 +3,21 @@ import { UserService } from '.';
 import { Booking, BookingModel, UpdateBooking } from '../entity/booking';
 import { NestModel } from '../entity/nest';
 
-export class BookingService{
+export class BookingService {
     static async getBookings(): Promise<Booking[]> {
         return await BookingModel.find().populate('nest').populate('tenant');
     }
 
     static async getBookingById(id: string): Promise<Booking> {
-        return BookingModel.find({_id: new ObjectId(id)});
+        return BookingModel.find({ _id: new ObjectId(id) });
     }
 
-    static async addBooking(tenantId: string, nestId: string, checkIn: number, checkout?: number): Promise<Booking>{
+    static async addBooking(tenantId: string, nestId: string, checkIn: number, checkout?: number): Promise<Booking> {
         try {
             const tenant = await UserService.getUserById(tenantId);
-            const nest = await NestModel.findOne({_id: new ObjectId(nestId)});
+            const nest = await NestModel.findOne({ _id: new ObjectId(nestId) });
 
-            if(!tenant || !nest){
+            if (!tenant || !nest) {
                 throw new Error('Failed to add booking');
             }
 
@@ -28,38 +28,36 @@ export class BookingService{
             });
 
             return await model.save();
-
         } catch (error) {
             // todo: log error
             return Promise.reject('Failed to add Booking');
         }
     }
 
-    static async updateBooking(id: string, payload: UpdateBooking){
+    static async updateBooking(id: string, payload: UpdateBooking): Promise<Booking> {
         try {
             let updatedData:any = {};
-            if(payload.nest) updatedData.nest = await NestModel.findOne({_id: new ObjectId(payload.nest.toString())});
-            if(payload.tenant) updatedData.tenant = await UserService.getUserById(payload.tenant.toString());
-            if(payload.checkIn) updatedData.checkIn = new Date(payload.checkIn);
-            if(payload.checkOut) updatedData.checkOut = new Date(payload.checkOut);
+            if (payload.nest) updatedData.nest = await NestModel.findOne({ _id: new ObjectId(payload.nest.toString()) });
+            if (payload.tenant) updatedData.tenant = await UserService.getUserById(payload.tenant.toString());
+            if (payload.checkIn) updatedData.checkIn = new Date(payload.checkIn);
+            if (payload.checkOut) updatedData.checkOut = new Date(payload.checkOut);
 
             return await BookingModel.findByIdAndUpdate(
                 id,
                 updatedData,
                 {
-                    new: true
-                }
+                    new: true,
+                },
             );
-
         } catch (error) {
             // todo: log error
             return Promise.reject('Failed updating the booking');
         }
     }
 
-    static async deleteBooking(id: string){
+    static async deleteBooking(id: string) {
         return await BookingModel.findOneAndDelete({
-            _id: new ObjectId(id)
+            _id: new ObjectId(id),
         });
     }
 }
