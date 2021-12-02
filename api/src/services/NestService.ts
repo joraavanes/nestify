@@ -1,6 +1,6 @@
 import { UserService } from '.';
 import { User } from '../entity';
-import { NestModel, Nest } from '../entity/nest';
+import { NestModel, Nest, UpdateNest } from '../entity/nest';
 
 export class NestService {
     static async getNests(): Promise<Nest[]> {
@@ -30,6 +30,24 @@ export class NestService {
         } catch (error) {
             // todo: log error
             return Promise.reject(error ?? 'Failed to Add the nest');
+        }
+    }
+
+    static async updateNest(id: string, payload: UpdateNest): Promise<Nest> {
+        try {
+            let updatedData: any = { ...payload };
+            if (payload.landlord) updatedData.landlord = await UserService.getUserById(id);
+
+            return await NestModel.findByIdAndUpdate(
+                id,
+                updatedData,
+                {
+                    new: true,
+                },
+            );
+        } catch (error) {
+            // todo: log error
+            return Promise.reject(error ?? 'Failed updating the nest');
         }
     }
 }
