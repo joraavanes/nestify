@@ -79,15 +79,11 @@ export const mutation = new GraphQLObjectType({
         removeNest: {
             type: NestType,
             args: {
-                nestId: { type: GraphQLNonNull(GraphQLString) },
+                id: { type: GraphQLNonNull(GraphQLString) },
             },
-            async resolve(source, { nestId }) {
-                const result = await NestModel.findByIdAndRemove(
-                    nestId,
-                    { useFindAndModify: false, new: false },
-                );
-                return result;
-            },
+            async resolve(source, { id }) {
+                return await NestService.deleteNest(id);
+            }
         },
         registerUser: {
             type: UserType,
