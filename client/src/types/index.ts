@@ -15,6 +15,7 @@ export interface Nest {
     latitude: number,
     price: number,
     photos?: string[],
+    userId: string,
 }
 
 export interface GetNestsData {

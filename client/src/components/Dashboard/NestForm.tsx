@@ -23,6 +23,7 @@ const NestForm: React.FC<NestFormProps> = ({handleNestMutation, nest}) => {
     const [longitude, setLongitude] = useState<number>(nest ? nest.longitude : 0);
     const [latitude, setLatitude] = useState<number>(nest ? nest.latitude : 0);
     const [price, setPrice] = useState<number>(nest ? nest.price : 0);
+    const [userId, setUserId] = useState(nest ? nest.userId : '');
     
     const handleFormSubmit = (e:FormEvent) => {
         e.preventDefault();
@@ -42,7 +43,8 @@ const NestForm: React.FC<NestFormProps> = ({handleNestMutation, nest}) => {
             rooms,
             longitude,
             latitude,
-            price
+            price,
+            userId,
         });
     };
 
@@ -105,6 +107,10 @@ const NestForm: React.FC<NestFormProps> = ({handleNestMutation, nest}) => {
                 <div>
                     <label htmlFor="price">price</label>
                     <input type="number" name="price" id="price" value={price} onChange={e => setPrice(+e.target.value)} />
+                </div>
+                <div>
+                    <label htmlFor="userId">userId</label>
+                    <input type="text" name="userId" id="userId" value={userId} onChange={e => setUserId(e.target.value)} />
                 </div>
                 <div>
                     <input type="submit" value="Add the nest"/>
