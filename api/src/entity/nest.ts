@@ -8,6 +8,7 @@ import {
     GraphQLString,
 } from 'graphql';
 import { Schema, model } from 'mongoose';
+import { BookingModel } from '.';
 import { User, UserType } from './user';
 
 export const NestType = new GraphQLObjectType({
@@ -150,6 +151,17 @@ const NestSchema = new Schema<Nest>({
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
+});
+
+NestSchema.post('remove', async function() {
+
+    await BookingModel.deleteMany({
+        nest: this._id,
+    });
+});
+
+NestSchema.post('save', function(){
+    // console.log('saved');
 });
 
 export const NestModel = model('Nest', NestSchema);
