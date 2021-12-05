@@ -165,3 +165,10 @@ NestSchema.post('save', function(){
 });
 
 export const NestModel = model('Nest', NestSchema);
+
+// Change stream
+NestModel
+    .watch()
+    .on('change', data => {
+        // console.log(new Date(), data);
+    });
