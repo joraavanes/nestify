@@ -50,4 +50,23 @@ export class NestService {
             return Promise.reject(error ?? 'Failed updating the nest');
         }
     }
+
+    static async deleteNest(id: string) {
+        try {
+            // // Find all bookings with matching nest
+            // const bookings = await BookingModel.find().populate({
+            //     path: 'nest',
+            //     math: {
+            //         nest: new ObjectId(id)
+            //     }
+            // }).exec();
+            // console.log(bookings);
+            const doc = await NestModel.findById(id);
+            return await doc.remove();
+            
+        } catch (error) {
+            // todo: log the error
+            return Promise.reject(error ?? 'Failed updating the nest');
+        }
+    }
 }
