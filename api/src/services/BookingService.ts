@@ -12,6 +12,14 @@ export class BookingService {
         return BookingModel.find({ _id: new ObjectId(id) });
     }
 
+    static async getBookingsOfANest(id: string): Promise<Booking[]> {
+        return await BookingModel.find({
+                        nest: new Object(id),
+                    }).populate('nest')
+                    .populate('tenant')
+                    .exec();
+    }
+
     static async addBooking(tenantId: string, nestId: string, checkIn: number, checkout?: number): Promise<Booking> {
         try {
             const tenant = await UserService.getUserById(tenantId);
