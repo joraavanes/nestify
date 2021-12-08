@@ -62,6 +62,15 @@ export const query = new GraphQLObjectType({
             resolve(){
                 return BookingService.getBookings();
             }
+        },
+        bookingsOfANest: {
+            type: new GraphQLList(BookingType),
+            args: {
+                id: { type: GraphQLNonNull(GraphQLString) },
+            },
+            async resolve(source, { id }){
+                return await BookingService.getBookingsOfANest(id);
+            }
         }
     },
 });
