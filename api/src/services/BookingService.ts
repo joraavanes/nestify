@@ -5,11 +5,17 @@ import { NestModel } from '../entity/nest';
 
 export class BookingService {
     static async getBookings(): Promise<Booking[]> {
-        return await BookingModel.find().populate('nest').populate('tenant');
+        return await BookingModel
+                        .find()
+                        .populate('nest')
+                        .populate('tenant');
     }
 
     static async getBookingById(id: string): Promise<Booking> {
-        return BookingModel.find({ _id: new ObjectId(id) });
+        return await BookingModel
+                        .findOne({ _id: new ObjectId(id) })
+                        .populate('tenant')
+                        .populate('nest');
     }
 
     static async getBookingsOfANest(id: string): Promise<Booking[]> {
