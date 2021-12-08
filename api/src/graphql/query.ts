@@ -18,12 +18,6 @@ import {
 export const query = new GraphQLObjectType({
     name: 'rootQuery',
     fields: {
-        message: {
-            type: GraphQLString,
-            resolve() {
-                return 'Hello world';
-            },
-        },
         nests: {
             type: new GraphQLList(NestType),
             async resolve() {
@@ -41,8 +35,8 @@ export const query = new GraphQLObjectType({
         },
         users: {
             type: new GraphQLList(UserType),
-            resolve(){ 
-                return UserService.getUsers(true);
+            async resolve(){ 
+                return await UserService.getUsers(true);
             }
         },
         user: {
@@ -51,16 +45,16 @@ export const query = new GraphQLObjectType({
                 id: { type: GraphQLID },
                 email: { type: GraphQLString },
             },
-            resolve(source, { id, email }) {
+            async resolve(source, { id, email }) {
                 return id ? 
-                    UserService.getUserById(id):
-                    UserService.getUserByEmail(email);
+                    await UserService.getUserById(id):
+                    await UserService.getUserByEmail(email);
             }
         },
         bookings: {
             type: new GraphQLList(BookingType),
-            resolve(){
-                return BookingService.getBookings();
+            async resolve(){
+                return await BookingService.getBookings();
             }
         },
         bookingsOfANest: {
