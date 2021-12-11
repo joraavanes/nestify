@@ -70,8 +70,13 @@ export class BookingService {
     }
 
     static async deleteBooking(id: string) {
-        return await BookingModel.findOneAndDelete({
-            _id: new ObjectId(id),
-        });
+        try {
+            return await BookingModel.findOneAndDelete({
+                _id: new ObjectId(id),
+            });
+        } catch (error) {
+            // todo: log error
+            return Promise.reject('Failed deleting booking');
+        }
     }
 }
