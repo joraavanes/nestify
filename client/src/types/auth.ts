@@ -1,5 +1,9 @@
 export interface LoginData {
-    result: string;
+    login:{ 
+        result: string,
+        description: string,
+        token: string,
+    };
     loading: boolean;
     error: Error;
 }
