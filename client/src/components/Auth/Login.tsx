@@ -1,19 +1,20 @@
 import { useMutation, useQuery } from '@apollo/client';
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import GoogleLogin from 'react-google-login';
+import { useHistory } from 'react-router-dom';
 import { LOGIN_USER } from '../../graphql/mutations';
 import { LoginData, LoginVariables } from '../../types/';
 
 const Login: React.FC = () => {
+    const history = useHistory();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const [loginUser, {data, loading, error}] = useMutation<LoginData,LoginVariables>(LOGIN_USER);
+    const [loginUser, {data: jwtData, loading, error}] = useMutation<LoginData,LoginVariables>(LOGIN_USER);
 
     const handleResponse = (response: any) => {
         console.log(response);
     };
-
     
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -25,6 +26,15 @@ const Login: React.FC = () => {
             }
         });
     };
+
+    useEffect(() => {
+        if(jwtData && jwtData.login?.result === "success") {
+            // todo: store token in the state, jwtData.login.result
+            history.push('/dashboard');
+        }
+
+        return () => {};
+    }, [jwtData]);
 
     return (
         <div>
@@ -52,7 +62,7 @@ const Login: React.FC = () => {
                 </form>
             </div>
             <div>
-                {data && JSON.stringify(data, undefined, 3)}
+                {jwtData && JSON.stringify(jwtData, undefined, 3)}
             </div>
         </div>
     );
