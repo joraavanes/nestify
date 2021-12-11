@@ -6,7 +6,8 @@
   "scripts": {
     "webpack": "webpack --watch",
     "serve": "webpack serve",
-    "dev": "concurrently \"yarn run webpack\" \"yarn run serve\""
+    "dev": "concurrently \"yarn run webpack\" \"yarn run serve\"",
+    "prod": "webpack --config webpack.production.js"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
