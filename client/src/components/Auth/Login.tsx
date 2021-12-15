@@ -1,5 +1,5 @@
-import { useMutation, useQuery } from '@apollo/client';
-import React, { FormEvent, useEffect, useState } from 'react';
+import { useMutation } from '@apollo/client';
+import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import GoogleLogin from 'react-google-login';
@@ -11,7 +11,7 @@ const Login: React.FC = () => {
     const history = useHistory();    
     const [loginUser, {data: jwtData, loading, error}] = useMutation<LoginData,LoginVariables>(LOGIN_USER);
     
-    const formik = useFormik({
+    const { getFieldProps, touched, errors, handleSubmit } = useFormik({
         initialValues: {
             username: '',
             password: ''
@@ -54,30 +54,24 @@ const Login: React.FC = () => {
             />
             <hr />
             <div>
-                <form onSubmit={formik.handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="username">UserName:</label>
                         <input 
                             type="text" 
-                            name="username" 
-                            id="username" 
-                            value={formik.values.username} 
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
+                            id="username"
+                            {...getFieldProps('username')}
                         />
-                        {formik.errors.username && formik.touched.username && <div>{formik.errors.username}</div>}
+                        {errors.username && touched.username && <div>{errors.username}</div>}
                     </div>
                     <div>
                         <label htmlFor="password">Password:</label>
                         <input 
-                            type="password" 
-                            name="password" 
-                            id="password" 
-                            value={formik.values.password} 
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
+                            type="password"
+                            id="password"
+                            {...getFieldProps('password')}
                         />
-                        {formik.errors.password && formik.touched.password && <div>{formik.errors.password}</div>}
+                        {errors.password && touched.password && <div>{errors.password}</div>}
                     </div>
                     <div>
                         <input type="submit" value="Login" />
