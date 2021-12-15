@@ -1,30 +1,37 @@
 import { useMutation, useQuery } from '@apollo/client';
 import React, { FormEvent, useEffect, useState } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import GoogleLogin from 'react-google-login';
 import { useHistory } from 'react-router-dom';
 import { LOGIN_USER } from '../../graphql/mutations';
 import { LoginData, LoginVariables } from '../../types/';
 
 const Login: React.FC = () => {
-    const history = useHistory();
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-
+    const history = useHistory();    
     const [loginUser, {data: jwtData, loading, error}] = useMutation<LoginData,LoginVariables>(LOGIN_USER);
+    
+    const formik = useFormik({
+        initialValues: {
+            username: '',
+            password: ''
+        },
+        validationSchema: Yup.object({
+            username: Yup.string().email('Username is not valid. Please check it out').max(25).required('Please enter the username'),
+            password: Yup.string().max(50).required('Please enter the password'),
+        }),
+        onSubmit: values => {
+            loginUser({
+                variables: {
+                    username: values.username,
+                    password: values.password
+                }
+            });
+        },
+    });
 
     const handleResponse = (response: any) => {
         console.log(response);
-    };
-    
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        
-        loginUser({
-            variables: {
-                username,
-                password
-            }
-        });
     };
 
     useEffect(() => {
@@ -47,14 +54,30 @@ const Login: React.FC = () => {
             />
             <hr />
             <div>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={formik.handleSubmit}>
                     <div>
                         <label htmlFor="username">UserName:</label>
-                        <input type="text" name="username" id="username" value={username} onChange={e => setUsername(e.target.value)}/>
+                        <input 
+                            type="text" 
+                            name="username" 
+                            id="username" 
+                            value={formik.values.username} 
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                        />
+                        {formik.errors.username && formik.touched.username && <div>{formik.errors.username}</div>}
                     </div>
                     <div>
                         <label htmlFor="password">Password:</label>
-                        <input type="password" name="password" id="password" value={password} onChange={e => setPassword(e.target.value)}/>
+                        <input 
+                            type="password" 
+                            name="password" 
+                            id="password" 
+                            value={formik.values.password} 
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                        />
+                        {formik.errors.password && formik.touched.password && <div>{formik.errors.password}</div>}
                     </div>
                     <div>
                         <input type="submit" value="Login" />
