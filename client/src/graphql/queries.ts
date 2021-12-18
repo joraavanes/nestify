@@ -23,7 +23,11 @@ export const GET_NEST = gql`
             size
             price
             furnished
+            dishwasher
+            washingMachine
             dryer
+            airConditioning
+            heating
             parking
             rooms
             latitude
