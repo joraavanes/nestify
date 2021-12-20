@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { ApolloProvider } from '@apollo/client';
 import { client } from './graphql/ApolloClient';
 import { Routes } from './routes';
+import './styles/imports';
 
 const Index: React.FC = () => (
         <ApolloProvider client={client}>
