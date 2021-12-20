@@ -3,8 +3,8 @@ import { Switch, BrowserRouter as Router, Route, Redirect } from 'react-router-d
 const Login = lazy(() => import('./components/Auth/Login'));
 const Register = lazy(() => import('./components/Auth/Register'));
 const App = lazy(() => import('./components/App'));
-const Nest = lazy(() => import('./components/Nest'));
-const Nests = lazy(() => import( './components/Nests'));
+const Nest = lazy(() => import('./components/Nest/Nest'));
+const Nests = lazy(() => import( './components/Nest/Nests'));
 const AddNest = lazy(() => import('./components/Dashboard/AddNest'));
 const Dashboard = lazy(() => import('./components/Dashboard/Dashboard'));
 const EditNest = lazy(() => import('./components/Dashboard/EditNest'));

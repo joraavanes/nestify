@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom'
-import { GetNestsData } from '../types';
-import { GET_NESTS } from '../graphql/queries';
+import { GetNestsData } from '../../types';
+import { GET_NESTS } from '../../graphql/queries';
 
 const Nests: React.FC = () => {
     const { loading, error, data } = useQuery<GetNestsData>(GET_NESTS);
@@ -17,12 +17,12 @@ const Nests: React.FC = () => {
     }, [loading, error]);
 
     return (
-        <div>
-            <h2>Nests</h2>
-            {loading && <span>Loading ...</span>}
-                {/* {data && data.nests && JSON.stringify(data.nests, undefined, 4)} */}
+        <div className="container-fluid">
+            <div className="row">
+                <h3>Current Listings</h3>
+                {loading && <span>Loading ...</span>}
                 {data && data.nests && data.nests.map(nest => (
-                    <div key={nest._id}>
+                    <div key={nest._id} className="col-12 col-sm-6 col-md-4">
                         <div>{nest._id}</div>
                         <div>{nest.title}</div>
                         <div>{nest.price}</div>
@@ -36,6 +36,7 @@ const Nests: React.FC = () => {
                         <hr />
                     </div>
                 ))}
+            </div>
         </div>
     );
 };

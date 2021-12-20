@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { useLocation, useParams } from 'react-router-dom';
-import { GetNestData, NestQueryTVariables } from '../types';
-import { GET_NEST } from '../graphql/queries';
+import { GetNestData, NestQueryTVariables } from '../../types';
+import { GET_NEST } from '../../graphql/queries';
 
 const Nest: React.FC = () => {
     const location = useLocation();
