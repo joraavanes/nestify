@@ -9,10 +9,12 @@ const AddNest = lazy(() => import('./components/Dashboard/AddNest'));
 const Dashboard = lazy(() => import('./components/Dashboard/Dashboard'));
 const EditNest = lazy(() => import('./components/Dashboard/EditNest'));
 const Users = lazy(() => import('./components/Dashboard/Users'));
+import Navigation from './components/shared/Navigation';
 
 export const Routes: React.FC = () => (
     <Router>
         <Suspense fallback={<div>Loading ...</div>}>
+            <Navigation/>
             <Switch>
                 <Redirect from="/" to="/nests" exact/>
                 <Route path="/" component={App} exact={true}/>
