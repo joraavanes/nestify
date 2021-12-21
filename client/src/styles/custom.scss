@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee&display=swap');
+
 $base-purple: rgba(253, 101, 145, 1);
 $base-blue: rgba(50, 63, 149, 1);
+
+*{
+    font-family: 'ABeeZee', sans-serif;
+}
 
 .bg-purple{background-color: $base-purple;}
 .bg-blue{background-color: $base-blue;}
