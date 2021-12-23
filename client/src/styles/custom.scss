@@ -9,3 +9,12 @@ $base-blue: rgba(50, 63, 149, 1);
 
 .bg-purple{background-color: $base-purple;}
 .bg-blue{background-color: $base-blue;}
+.btn-primary{
+    background-color: $base-blue;
+    border-radius: 25px;
+    border-color: $base-blue;
+}
+.btn-sm{
+    padding: .35rem .65rem;
+    font-size: .8rem;
+}

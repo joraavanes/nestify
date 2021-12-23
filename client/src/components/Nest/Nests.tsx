@@ -33,8 +33,8 @@ const Nests: React.FC = () => {
                                 <div>{nest.longitude}</div>
                                 <Link to={{
                                     pathname: `/nest/${nest._id}`
-                                }}>
-                                    Checkout
+                                }} className="btn btn-primary btn-sm mt-2 mb-2 float-end">
+                                    Check it out
                                 </Link>
                             </Info>
                         </NestBox>
