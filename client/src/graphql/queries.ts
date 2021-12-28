@@ -7,7 +7,8 @@ export const GET_NESTS = gql`
             title
             price
             furnished
-            dryer
+            washingMachine
+            heating
             latitude
             longitude
         }

@@ -9,12 +9,8 @@ const Nests: React.FC = () => {
     const { loading, error, data } = useQuery<GetNestsData>(GET_NESTS);
 
     useEffect(() => {
-        console.log(data);
-        console.log(error?.message);
 
-        return () => {
-            
-        }
+        return () => {};
     }, [loading, error]);
 
     return (
@@ -27,10 +23,15 @@ const Nests: React.FC = () => {
                         <NestBox>
                             <Title className="h5" title={nest.title}>{nest.title}</Title>
                             <Info>
-                                <div>{nest._id}</div>
-                                <div>{nest.price}</div>
-                                <div>{nest.latitude}</div>
-                                <div>{nest.longitude}</div>
+                                {/* <div>{nest._id}</div> */}
+                                <div>
+                                    {nest.furnished && <span className="badge rounded-pill bg-secondary m-1">Furnished</span>}
+                                    {nest.washingMachine && <span className="badge rounded-pill bg-secondary m-1">Washing Machine</span>}
+                                    {nest.heating && <span className="badge rounded-pill bg-secondary m-1">Heating</span>}
+                                </div>
+                                {/* <div>{nest.latitude}</div>
+                                <div>{nest.longitude}</div> */}
+                                <div>{nest.price} <i className="fas fa-euro-sign"></i> / monthly</div>
                                 <Link to={{
                                     pathname: `/nest/${nest._id}`
                                 }} className="btn btn-primary btn-sm mt-2 mb-2 float-end">
