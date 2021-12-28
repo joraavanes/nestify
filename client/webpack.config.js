@@ -16,6 +16,16 @@ module.exports ={
     module:{
         rules:[
             {
+                test: /\.(jpg|png|gif|svg|ttf|woff|eot)$/,
+                use: {
+                    loader:'file-loader',
+                    options:{
+                        name: '[name].[hash].[ext]',
+                    }
+                },
+                exclude: /node_modules/
+            },
+            {
                 use: 'ts-loader',
                 test: /\.(ts|tsx)$/,
                 exclude: /node_modules/
@@ -28,7 +38,7 @@ module.exports ={
             {
                 use: ['style-loader', 'css-loader', 'sass-loader'],
                 test: /\.scss$|\.css$/,
-            }
+            },
         ]
     },
     plugins: [
