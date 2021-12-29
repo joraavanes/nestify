@@ -9,7 +9,7 @@ const AddNest = lazy(() => import('./components/Dashboard/AddNest'));
 const Dashboard = lazy(() => import('./components/Dashboard/Dashboard'));
 const EditNest = lazy(() => import('./components/Dashboard/EditNest'));
 const Users = lazy(() => import('./components/Dashboard/Users'));
-import Navigation from './components/shared/Navigation';
+const Navigation = lazy(() => import('./components/shared/Navigation'));
 
 export const Routes: React.FC = () => (
     <Router>
