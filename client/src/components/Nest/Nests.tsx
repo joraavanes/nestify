@@ -24,7 +24,9 @@ const Nests: React.FC = () => {
                 </div>
                 <div className="col col-sm-10 pt-3 pb-3">
                     <h3 className="pt-3 pb-3">Current Listings</h3>
-                    {loading && <span>Loading ...</span>}
+                    {loading && <div className="spinner-border text-primary" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>}
                     <div className="row g-sm-3">
                         {data && data.nests && data.nests.map(nest => (
                             <div key={nest._id} className="col-12 col-sm-6 col-md-4 col-xl-3 col-xxl-2">

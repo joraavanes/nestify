@@ -28,6 +28,9 @@ const Nest: React.FC = () => {
         <div>
             <h2>Nest</h2>
             <p>This is Nest Component</p>
+            {loading && <div className="spinner-border text-primary" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>}
             <pre>
                 {data && JSON.stringify(data, undefined, 3)}
             </pre>

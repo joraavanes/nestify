@@ -13,7 +13,9 @@ const Navigation = lazy(() => import('./components/shared/Navigation'));
 
 export const Routes: React.FC = () => (
     <Router>
-        <Suspense fallback={<div>Loading ...</div>}>
+        <Suspense fallback={<div className="spinner-border text-primary" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>}>
             <Navigation/>
             <Switch>
                 <Redirect from="/" to="/nests" exact/>
