@@ -17,12 +17,12 @@ const Nests: React.FC = () => {
     return (
         <div className="container-fluid">
             <div className="row">
-                <div className="col col-sm-2 g-0">
+                <div className="col col-sm-3 col-xl-2 g-0 d-none d-sm-block">
                     <FilterBox>
                         <h4>Filters & Ordering </h4>
                     </FilterBox>
                 </div>
-                <div className="col col-sm-10 pt-3 pb-3">
+                <div className="col col-sm-9 col-xl-10 pt-3 pb-3">
                     <h3 className="pt-3 pb-3">Current Listings</h3>
                     {loading && <div className="spinner-border text-primary" role="status">
                                     <span className="sr-only">Loading...</span>
