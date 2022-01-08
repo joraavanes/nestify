@@ -13,6 +13,11 @@ const Dashboard = () => {
     const [RemoveNest , {data:removeData, loading:removeLoading, error: removeError}] = useMutation<GetNestData,NestRemoveTVariables>(REMOVE_NEST);
     
     useEffect(() => {
+        document.title = `Dashboard | Nestify, Find your dream nest!`;
+        return () => {};
+    }, []);
+
+    useEffect(() => {
         refetch();
         
         return () => {};

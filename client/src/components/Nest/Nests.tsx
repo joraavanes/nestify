@@ -10,6 +10,10 @@ const Nests: React.FC = () => {
     const { loading, error, data } = useQuery<GetNestsData>(GET_NESTS);
 
     useEffect(() => {
+        document.title = 'Nestify, Find your dream nest!';
+    }, []);
+
+    useEffect(() => {
 
         return () => {};
     }, [loading, error]);
