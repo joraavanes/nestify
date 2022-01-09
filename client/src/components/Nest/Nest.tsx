@@ -1,8 +1,12 @@
-import React, { useEffect } from 'react';
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { useLocation, useParams } from 'react-router-dom';
 import { GetNestData, NestQueryTVariables } from '../../types';
 import { GET_NEST } from '../../graphql/queries';
+import moment, { Moment } from 'moment';
+import { DateRangePicker, SingleDatePicker, DayPickerRangeController, FocusedInputShape, isInclusivelyAfterDay, isInclusivelyBeforeDay } from 'react-dates';
 import img from '../../assets/nest.jpg';
 import washing from '../../assets/washing-80.png';
 import airConditioner from '../../assets/air-conditioner-50.png';
@@ -14,6 +18,9 @@ import heating from '../../assets/heating-50.png';
 const Nest: React.FC = () => {
     const location = useLocation();
     const params: {id: string} = useParams();
+    const [calendarFocused, setCalendarFocused] = useState<FocusedInputShape | null>(null);
+    const [startDate, setStartDate] = useState<Moment|null>(null);
+    const [endDate, setEndDate] = useState<Moment|null>(null);
 
     const { data, error, loading } = useQuery<GetNestData, NestQueryTVariables>(GET_NEST, {
         variables: {
@@ -35,6 +42,12 @@ const Nest: React.FC = () => {
             
         }
     }, [data, error, loading]);
+
+    const handleRangePickerChange = (val: { startDate: Moment | null; endDate: Moment | null; }) => {
+        console.log(`Start: ${val.startDate}, End: ${val.endDate}`);
+        setStartDate(val.startDate);
+        setEndDate(val.endDate);
+    };
 
     return (
         <div className="container">
@@ -106,6 +119,19 @@ const Nest: React.FC = () => {
 
                             <h5 className="card-title">Card title</h5>
                             <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
+
+                            <DateRangePicker
+                                startDateId="settlement_date_start"
+                                endDateId="settlement_date_end"
+                                startDate={startDate}
+                                endDate={endDate}
+                                onDatesChange={handleRangePickerChange}
+                                focusedInput={calendarFocused}
+                                onFocusChange={(focusInput) => setCalendarFocused(focusInput)}
+                                numberOfMonths={2}
+                                isOutsideRange={(day) => isInclusivelyBeforeDay(day, moment())}
+                                showClearDates={true}
+                            />
                             <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             <a href="#" className="card-link">Card link</a>
                             <a href="#" className="card-link">Another link</a>
