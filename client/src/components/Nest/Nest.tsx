@@ -19,8 +19,8 @@ const Nest: React.FC = () => {
     const location = useLocation();
     const params: {id: string} = useParams();
     const [calendarFocused, setCalendarFocused] = useState<FocusedInputShape | null>(null);
-    const [startDate, setStartDate] = useState<Moment|null>(null);
-    const [endDate, setEndDate] = useState<Moment|null>(null);
+    const [checkIn, setChechIn] = useState<Moment|null>(null);
+    const [checkOut, setCheckOut] = useState<Moment|null>(null);
 
     const { data, error, loading } = useQuery<GetNestData, NestQueryTVariables>(GET_NEST, {
         variables: {
@@ -45,8 +45,8 @@ const Nest: React.FC = () => {
 
     const handleRangePickerChange = (val: { startDate: Moment | null; endDate: Moment | null; }) => {
         console.log(`Start: ${val.startDate}, End: ${val.endDate}`);
-        setStartDate(val.startDate);
-        setEndDate(val.endDate);
+        setChechIn(val.startDate);
+        setCheckOut(val.endDate);
     };
 
     return (
@@ -120,19 +120,22 @@ const Nest: React.FC = () => {
                             <h5 className="card-title">Card title</h5>
                             <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
 
+                            
                             <DateRangePicker
                                 startDateId="settlement_date_start"
                                 endDateId="settlement_date_end"
-                                startDate={startDate}
-                                endDate={endDate}
+                                startDate={checkIn}
+                                endDate={checkOut}
                                 onDatesChange={handleRangePickerChange}
                                 focusedInput={calendarFocused}
                                 onFocusChange={(focusInput) => setCalendarFocused(focusInput)}
                                 numberOfMonths={2}
                                 isOutsideRange={(day) => isInclusivelyBeforeDay(day, moment())}
                                 showClearDates={true}
+                                startDatePlaceholderText="Check in"
+                                endDatePlaceholderText="Check out"
                             />
-                            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            
                             <a href="#" className="card-link">Card link</a>
                             <a href="#" className="card-link">Another link</a>
                         </div>
