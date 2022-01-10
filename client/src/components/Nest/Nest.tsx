@@ -14,6 +14,7 @@ import couch from '../../assets/couch-64.png';
 import dryer from '../../assets/dryer-100.png';
 import dishwasher from '../../assets/dishwasher-60.png';
 import heating from '../../assets/heating-50.png';
+import './styles/react-dates.custom.scss';
 
 const Nest: React.FC = () => {
     const location = useLocation();
