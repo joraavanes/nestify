@@ -8,7 +8,8 @@ export class NestService {
     }
 
     static async getNest(id: string): Promise<Nest> {
-        return await NestModel.findById(id);
+        return await NestModel.findById(id)
+                                .populate('landlord');
     }
 
     static async addNest(userId: string, nest: Nest): Promise<Nest> {
