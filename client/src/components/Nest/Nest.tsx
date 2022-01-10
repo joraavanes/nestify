@@ -50,6 +50,8 @@ const Nest: React.FC = () => {
         setCheckOut(val.endDate);
     };
 
+    const rangePickerOrientation = window.matchMedia("(max-width: 700px)").matches ? 'vertical' : 'horizontal'
+
     return (
         <div className="container">
             <div className="row">
@@ -135,8 +137,11 @@ const Nest: React.FC = () => {
                                 showClearDates={true}
                                 startDatePlaceholderText="Check in"
                                 endDatePlaceholderText="Check out"
+                                orientation={rangePickerOrientation}
+                                hideKeyboardShortcutsPanel={true}
                             />
                             
+                            <hr />
                             <a href="#" className="card-link">Card link</a>
                             <a href="#" className="card-link">Another link</a>
                         </div>

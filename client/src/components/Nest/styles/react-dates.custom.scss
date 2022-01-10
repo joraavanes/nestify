@@ -1,5 +1,15 @@
 $base-purple: rgba(253, 101, 145, 1);
 
+@media screen and (min-width: 991px) {
+    .DateRangePicker_picker{
+        left: -150px!important;
+    }
+}
+
+.DayPicker__withBorder{
+    border-radius: 1em;
+}
+
 // Will edit everything selected including everything between a range of dates
 .CalendarDay__selected_span {
     // background: #82e0aa; //background
