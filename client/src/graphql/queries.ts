@@ -33,6 +33,11 @@ export const GET_NEST = gql`
             rooms
             latitude
             longitude
+            landlord {
+                name
+                surname
+                email
+            }
         }
     }
 `;
