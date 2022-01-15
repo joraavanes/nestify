@@ -37,6 +37,9 @@ const Login: React.FC = () => {
     useEffect(() => {
         if(jwtData && jwtData.login?.result === "success") {
             // todo: store token in the state, jwtData.login.result
+            const {token} = jwtData.login;
+            localStorage.setItem('AUTH_TOKEN', token);
+
             history.push('/dashboard');
         }
 
