@@ -11,9 +11,11 @@ import img from '../../assets/nest.jpg';
 import washing from '../../assets/washing-80.png';
 import airConditioner from '../../assets/air-conditioner-50.png';
 import couch from '../../assets/couch-64.png';
-import dryer from '../../assets/dryer-100.png';
+import dryer from '../../assets/dryer-60.png';
 import dishwasher from '../../assets/dishwasher-60.png';
 import heating from '../../assets/heating-50.png';
+import garage from '../../assets/garage-80.png';
+import rooms from '../../assets/floor-plan-80.png';
 import './styles/react-dates.custom.scss';
 
 const Nest: React.FC = () => {
@@ -73,23 +75,29 @@ const Nest: React.FC = () => {
                         <img src={img} alt="" className="img-fluid rounded" />
                     }
 
-                    <div className="row mt-5 mb-3">
-                        <h3>Facilities</h3>
-                        <div className="col-xs-6 col-sm-4">{data?.nest.rooms} Rooms</div>
-                        <div className="col-xs-6 col-sm-4">{data?.nest.parking} Parkings</div>
+                    <div className="row mt-5">
+                        <h3 className="mt-4">Facilities</h3>
+                        <div className="col-xs-6 col-sm-4">
+                            <img src={rooms} alt="" />
+                            {data?.nest.rooms} Rooms
+                        </div>
+                        <div className="col-xs-6 col-sm-4">
+                            <img src={garage} alt="" className="text-muted"/>
+                            {data?.nest.parking} Parkings
+                        </div>
                     </div>
 
-                    <div className="row mt-5 mb-3">
-                        <h3>Amenities</h3>
-                        <div className="col-xs-6 col-sm-4"><img src={couch} alt="" /></div>
-                        <div className="col-xs-6 col-sm-4"><img src={dishwasher} alt="" /></div>
-                        <div className="col-xs-6 col-sm-4"><img src={heating} alt="" /></div>
-                        <div className="col-xs-6 col-sm-4"><img src={airConditioner} alt="" /></div>
-                        <div className="col-xs-6 col-sm-4"><img src={dryer} alt="" /></div>
-                        <div className="col-xs-6 col-sm-4"><img src={washing} alt="" /></div>
+                    <div className="row mt-5">
+                        <h3 className="mt-4">Amenities</h3>
+                        <div className="col-xs-6 col-sm-4 mt-3"><img src={couch} alt="" />Furnished</div>
+                        <div className="col-xs-6 col-sm-4 mt-3"><img src={dishwasher} alt="" />Dishwasher</div>
+                        <div className="col-xs-6 col-sm-4 mt-3"><img src={heating} alt="" />Heating</div>
+                        <div className="col-xs-6 col-sm-4 mt-3"><img src={airConditioner} alt="" />Air Conditioner</div>
+                        <div className="col-xs-6 col-sm-4 mt-3"><img src={dryer} alt="" />Dryer</div>
+                        <div className="col-xs-6 col-sm-4 mt-3"><img src={washing} alt="" />Washing Machine</div>
                     </div>
 
-                    <div className="row">
+                    <div className="row mt-5">
                         <h3>Map</h3>
                         <div className="col"></div>
                     </div>
@@ -141,9 +149,9 @@ const Nest: React.FC = () => {
                                 hideKeyboardShortcutsPanel={true}
                             />
                             
-                            <hr />
-                            <a href="#" className="card-link">Card link</a>
-                            <a href="#" className="card-link">Another link</a>
+                            <p>You can book for the time span you wish</p>
+                            <button className="btn btn-primary d-block mx-auto w-100">Book</button>
+                            {/* <a href="#" className="card-link">Another link</a> */}
                         </div>
                     </div>
 }
