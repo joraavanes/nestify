@@ -26,9 +26,9 @@ export class BookingService {
                     .exec();
     }
 
-    static async addBooking(tenantId: string, nestId: string, checkIn: number, checkout?: number): Promise<Booking> {
+    static async addBooking(token: string, nestId: string, checkIn: number, checkout?: number): Promise<Booking> {
         try {
-            const tenant = await UserService.getUserById(tenantId);
+            const tenant = await UserService.getUserByToken(token);
             const nest = await NestModel.findOne({ _id: new ObjectId(nestId) });
 
             if (!tenant || !nest) {

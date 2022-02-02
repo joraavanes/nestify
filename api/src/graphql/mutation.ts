@@ -122,13 +122,13 @@ export const mutation = new GraphQLObjectType({
         addBooking: {
             type: BookingType,
             args:{
-                tenant: { type: GraphQLNonNull(GraphQLString) },
+                token: { type: GraphQLNonNull(GraphQLString) },
                 nest: { type: GraphQLNonNull(GraphQLString) },
                 checkIn: { type: GraphQLNonNull(GraphQLString)},
                 checkOut: { type: GraphQLString },
             },
-            async resolve(source, {tenant, nest, checkIn, checkOut}){
-                return await BookingService.addBooking(tenant, nest, +checkIn, +checkOut);
+            async resolve(source, {token, nest, checkIn, checkOut}){
+                return await BookingService.addBooking(token, nest, +checkIn, +checkOut);
             }
         },
         updateBooking: {
