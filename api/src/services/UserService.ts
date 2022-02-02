@@ -22,6 +22,12 @@ export class UserService {
         return await UserModel.findOne({ email });
     }
 
+    static async getUserByToken(token: string): Promise<User>{
+        return await UserModel.findOne({
+            "tokens.token": token
+        });
+    }
+
     static async hashPassword(plainText: string): Promise<string> {
         const salt = await bcrypt.genSalt(10);
         return await bcrypt.hash(plainText, salt);
