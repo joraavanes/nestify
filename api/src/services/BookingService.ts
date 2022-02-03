@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { UserService } from '.';
-import { Booking, BookingModel, UpdateBooking } from '../entity/booking';
+import { Booking, BookingModel, CreateBooking, UpdateBooking } from '../entity/booking';
 import { NestModel } from '../entity/nest';
 
 export class BookingService {
@@ -26,7 +26,7 @@ export class BookingService {
                     .exec();
     }
 
-    static async addBooking(token: string, nestId: string, checkIn: number, checkout?: number): Promise<Booking> {
+    static async addBooking(token: string, nestId: string, checkIn: number, checkout?: number): Promise<CreateBooking> {
         try {
             const tenant = await UserService.getUserByToken(token);
             const nest = await NestModel.findOne({ _id: new ObjectId(nestId) });
@@ -41,7 +41,14 @@ export class BookingService {
                 checkIn: new Date(checkIn),
             });
 
-            return await model.save();
+            const doc = await model.save();
+
+            return {
+                _id: doc._id,
+                tenant,
+                nest,
+                checkIn: new Date(checkIn)
+            };
         } catch (error) {
             // todo: log error
             return Promise.reject('Failed to add Booking');
