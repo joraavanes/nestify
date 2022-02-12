@@ -32,6 +32,7 @@ const config: LooseObject = {
         db: 'mongodb://localhost:27017/nestify-test',
         port,
         jwtKey,
+        staticDir: path.join(__dirname, '../../public')
     }
 };
 
