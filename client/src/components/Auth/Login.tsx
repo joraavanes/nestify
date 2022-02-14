@@ -6,6 +6,7 @@ import GoogleLogin from 'react-google-login';
 import { useHistory } from 'react-router-dom';
 import { LOGIN_USER } from '../../graphql/mutations';
 import { LoginData, LoginVariables } from '../../types/';
+import { authVar } from '../../graphql/cache';
 
 const Login: React.FC = () => {
     const history = useHistory();    
@@ -38,7 +39,10 @@ const Login: React.FC = () => {
         if(jwtData && jwtData.login?.result === "success") {
             // todo: store token in the state, jwtData.login.result
             const {token} = jwtData.login;
-            localStorage.setItem('AUTH_TOKEN', token);
+            authVar({
+                token,
+                access: '',
+            });
 
             history.push('/dashboard');
         }
