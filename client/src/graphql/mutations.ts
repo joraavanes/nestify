@@ -76,3 +76,20 @@ export const REGISTER_USER = gql`
         }
     }
 `;
+
+export const ADD_BOOKING = gql`
+    mutation AddBooking($token: String!, $nest: String!, $checkIn: String!, $checkOut: String) {
+        addBooking(token: $token, nest: $nest, checkIn: $checkIn, checkOut: $checkOut) {
+            _id
+            tenant {
+                name
+                email
+            }
+            nest {
+                title
+            }
+            checkIn
+            checkOut
+        }
+    }
+`;
