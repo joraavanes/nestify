@@ -1,3 +1,9 @@
+
+export interface authState {
+    token?: string;
+    access?: string;
+}
+
 export interface LoginData {
     login:{ 
         result: string,
