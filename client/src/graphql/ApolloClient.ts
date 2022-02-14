@@ -1,4 +1,5 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
+import { cache } from '../graphql/cache'
 
 const defaultOptions: any = {
     watchQuery: {
@@ -12,7 +13,7 @@ const defaultOptions: any = {
 };
 
 export const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    link: createHttpLink({uri: '/api'}), // localhost:5000/api if client runs on devServer
+    cache,
+    link: createHttpLink({uri: 'http://localhost:5000/api'}), // localhost:5000/api if client runs on devServer
     defaultOptions,
 });
