@@ -39,6 +39,7 @@ export class BookingService {
                 tenant: tenant._id,
                 nest: nest._id,
                 checkIn: new Date(checkIn),
+                checkOut: checkout ? new Date(checkout) : null
             });
 
             const doc = await model.save();
