@@ -1,12 +1,14 @@
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import React, { useEffect, useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useLocation, useParams } from 'react-router-dom';
-import { GetNestData, NestQueryTVariables } from '../../types';
-import { GET_NEST } from '../../graphql/queries';
+import { AddBookingVariables, GetNestData, NestQueryTVariables } from '../../types';
 import moment, { Moment } from 'moment';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController, FocusedInputShape, isInclusivelyAfterDay, isInclusivelyBeforeDay } from 'react-dates';
+import { GET_NEST } from '../../graphql/queries';
+import { ADD_BOOKING } from '../../graphql/mutations';
+import { authVar } from '../../graphql/cache';
 import img from '../../assets/nest.jpg';
 import washing from '../../assets/washing-80.png';
 import airConditioner from '../../assets/air-conditioner-50.png';
@@ -31,11 +33,10 @@ const Nest: React.FC = () => {
         }
     });
 
-    console.log(location);
-    console.log(params);
+    const [bookNest, {data: nestBookingData, loading: nestBookinLoading, error: bookingError }] = useMutation<{},AddBookingVariables>(ADD_BOOKING);
 
     useEffect(() => {
-        console.log(data, error, loading);
+        // console.log(data, error, loading);
 
         if(data?.nest){
             document.title = `${data.nest.title} | Nestify, Find your dream nest!`;
@@ -47,10 +48,29 @@ const Nest: React.FC = () => {
     }, [data, error, loading]);
 
     const handleRangePickerChange = (val: { startDate: Moment | null; endDate: Moment | null; }) => {
-        console.log(`Start: ${val.startDate}, End: ${val.endDate}`);
+        // console.log(`Start: ${val.startDate}, End: ${val.endDate}`);
         setChechIn(val.startDate);
         setCheckOut(val.endDate);
     };
+
+    const handleBooking = () => {
+        const { token } = authVar();
+        
+        if(checkIn && data?.nest && token && typeof token === 'string'){
+            bookNest({
+                variables: {
+                    token,
+                    nest: data?.nest._id,
+                    checkIn: (checkIn.unix()*1000).toString(),
+                    checkOut: checkOut ? (checkOut.unix()*1000).toString(): undefined
+                }
+            });
+        }
+    };
+
+    useEffect(() => {
+        // console.log(nestBookingData);
+    }, [nestBookingData]);
 
     const rangePickerOrientation = window.matchMedia("(max-width: 700px)").matches ? 'vertical' : 'horizontal'
 
@@ -89,12 +109,12 @@ const Nest: React.FC = () => {
 
                     <div className="row mt-5">
                         <h3 className="mt-4">Amenities</h3>
-                        <div className="col-xs-6 col-sm-4 mt-3"><img src={couch} alt="" />Furnished</div>
-                        <div className="col-xs-6 col-sm-4 mt-3"><img src={dishwasher} alt="" />Dishwasher</div>
-                        <div className="col-xs-6 col-sm-4 mt-3"><img src={heating} alt="" />Heating</div>
-                        <div className="col-xs-6 col-sm-4 mt-3"><img src={airConditioner} alt="" />Air Conditioner</div>
-                        <div className="col-xs-6 col-sm-4 mt-3"><img src={dryer} alt="" />Dryer</div>
-                        <div className="col-xs-6 col-sm-4 mt-3"><img src={washing} alt="" />Washing Machine</div>
+                        {data?.nest.furnished && <div className="col-xs-6 col-sm-4 mt-3"><img src={couch} alt="" />Furnished</div>}
+                        {data?.nest.dishwasher && <div className="col-xs-6 col-sm-4 mt-3"><img src={dishwasher} alt="" />Dishwasher</div>}
+                        {data?.nest.heating && <div className="col-xs-6 col-sm-4 mt-3"><img src={heating} alt="" />Heating</div>}
+                        {data?.nest.airConditioning && <div className="col-xs-6 col-sm-4 mt-3"><img src={airConditioner} alt="" />Air Conditioner</div>}
+                        {data?.nest.dryer && <div className="col-xs-6 col-sm-4 mt-3"><img src={dryer} alt="" />Dryer</div>}
+                        {data?.nest.washingMachine && <div className="col-xs-6 col-sm-4 mt-3"><img src={washing} alt="" />Washing Machine</div>}
                     </div>
 
                     <div className="row mt-5">
@@ -150,7 +170,7 @@ const Nest: React.FC = () => {
                             />
                             
                             <p>You can book for the time span you wish</p>
-                            <button className="btn btn-primary d-block mx-auto w-100">Book</button>
+                            <button className="btn btn-primary d-block mx-auto w-100" onClick={handleBooking}>Book</button>
                             {/* <a href="#" className="card-link">Another link</a> */}
                         </div>
                     </div>
