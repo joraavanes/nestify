@@ -13,7 +13,7 @@ export const startServer = async (): Promise<void> => {
 
     try {
         await mongoLoader();
-    } catch (error) {
+    } catch (error: any) {
         console.log(colors.bgRed(error.message));
     }
 
