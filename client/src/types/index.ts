@@ -57,5 +57,12 @@ export interface NestRemoveTVariables {
     nestId: string;
 }
 
+export interface AddBookingVariables {
+    token: string;
+    nest: string;
+    checkIn: string;
+    checkOut?: string;
+}
+
 export * from './auth'
 export * from './users'
