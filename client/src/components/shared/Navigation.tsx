@@ -19,6 +19,9 @@ const Navigation = () => (
                 <li className="nav-item">
                     <NavLink to={'/dashboard'} className="nav-link">Dashboard</NavLink>
                 </li>
+                <li className="nav-item">
+                    <NavLink to={'/login'} className="nav-link">Login</NavLink>
+                </li>
                 <li className="nav-item dropdown">
                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Dropdown
