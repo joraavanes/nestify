@@ -16,7 +16,7 @@ const NestBookingForm: React.FC<NestBookingFormInterface> = ({loading, nestData}
     const [checkIn, setChechIn] = useState<Moment|null>(null);
     const [checkOut, setCheckOut] = useState<Moment|null>(null);
 
-    const [bookNest, {data: nestBookingData, loading: nestBookinLoading, error: bookingError }] = useMutation<{},AddBookingVariables>(ADD_BOOKING);
+    const [bookNest, {data: nestBookingData, loading: nestBookingLoading, error: bookingError }] = useMutation<{},AddBookingVariables>(ADD_BOOKING);
 
     const handleRangePickerChange = (val: { startDate: Moment | null; endDate: Moment | null; }) => {
         // console.log(`Start: ${val.startDate}, End: ${val.endDate}`);
@@ -68,7 +68,6 @@ const NestBookingForm: React.FC<NestBookingFormInterface> = ({loading, nestData}
 
                     <h5 className="card-title">Card title</h5>
                     <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-
                     
                     <DateRangePicker
                         startDateId="settlement_date_start"
@@ -88,7 +87,10 @@ const NestBookingForm: React.FC<NestBookingFormInterface> = ({loading, nestData}
                     />
                     
                     <p>You can book for the time span you wish</p>
-                    <button className="btn btn-primary d-block mx-auto w-100" onClick={handleBooking}>Book</button>
+                    <button className="btn btn-primary d-block mx-auto w-100" onClick={handleBooking} disabled={nestBookingLoading}>
+                        {nestBookingLoading && <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>}
+                        Book
+                    </button>
                     {/* <a href="#" className="card-link">Another link</a> */}
                 </div>
             </div>)
